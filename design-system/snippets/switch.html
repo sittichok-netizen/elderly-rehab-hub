@@ -1,0 +1,82 @@
+<!-- ================================================================
+     SNIPPET: sensory-switch (Toggle Switch)
+     Base:    .sensory-switch  (label wrapper)
+     Control: <input type="checkbox"> (visually hidden)
+     Track:   <span class="track"> contains <span class="thumb">
+     Label:   <span class="switch-label"> (optional, ใส่ text ที่นี่)
+     Disabled:.sensory-switch.is-disabled + disabled attr on input
+     A11y:    .sensory-switch เป็น <label> — ใช้สำหรับ binary on/off settings
+              ถ้าไม่มี visible label ให้เพิ่ม aria-label บน input แทน
+     ================================================================ -->
+
+<!-- Switch with label (right) -->
+<label class="sensory-switch">
+  <input type="checkbox" />
+  <span class="track"><span class="thumb"></span></span>
+  <span class="switch-label">รับการแจ้งเตือนทางอีเมล</span>
+</label>
+
+<!-- Checked by default -->
+<label class="sensory-switch">
+  <input type="checkbox" checked />
+  <span class="track"><span class="thumb"></span></span>
+  <span class="switch-label">เปิดใช้งานบัญชี</span>
+</label>
+
+<!-- Disabled unchecked -->
+<label class="sensory-switch is-disabled">
+  <input type="checkbox" disabled />
+  <span class="track"><span class="thumb"></span></span>
+  <span class="switch-label">การแจ้งเตือน SMS (ไม่พร้อมใช้งาน)</span>
+</label>
+
+<!-- Disabled checked -->
+<label class="sensory-switch is-disabled">
+  <input type="checkbox" checked disabled />
+  <span class="track"><span class="thumb"></span></span>
+  <span class="switch-label">ยืนยันตัวตน 2 ขั้นตอน (บังคับ)</span>
+</label>
+
+<!-- Switch group ในหน้า Settings -->
+<div style="display:flex; flex-direction:column; gap:16px;">
+
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:16px;
+              padding:14px 16px; background:var(--surface-card); border:1px solid var(--border-subtle);
+              border-radius:var(--radius-md);">
+    <div>
+      <div style="font-size:var(--text-base); font-weight:var(--fw-medium); color:var(--text-heading);">
+        การแจ้งเตือนการลา
+      </div>
+      <div style="font-size:var(--text-sm); color:var(--text-muted); margin-top:2px;">
+        รับอีเมลเมื่อมีการอนุมัติหรือปฏิเสธคำขอ
+      </div>
+    </div>
+    <label class="sensory-switch">
+      <input type="checkbox" checked aria-label="การแจ้งเตือนการลา" />
+      <span class="track"><span class="thumb"></span></span>
+    </label>
+  </div>
+
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:16px;
+              padding:14px 16px; background:var(--surface-card); border:1px solid var(--border-subtle);
+              border-radius:var(--radius-md);">
+    <div>
+      <div style="font-size:var(--text-base); font-weight:var(--fw-medium); color:var(--text-heading);">
+        รายงานสรุปรายสัปดาห์
+      </div>
+      <div style="font-size:var(--text-sm); color:var(--text-muted); margin-top:2px;">
+        ส่งสรุปทุกวันจันทร์ 8:00 น.
+      </div>
+    </div>
+    <label class="sensory-switch">
+      <input type="checkbox" aria-label="รายงานสรุปรายสัปดาห์" />
+      <span class="track"><span class="thumb"></span></span>
+    </label>
+  </div>
+
+</div>
+
+<!-- ✓ DO: ใช้ switch สำหรับ binary setting ที่มีผลทันที (on/off) -->
+<!-- ✓ DO: เพิ่ม aria-label บน input เมื่อไม่มี visible switch-label -->
+<!-- ✗ DO NOT: ใช้ switch แทน checkbox ใน form submit (ใช้ checkbox แทน) -->
+<!-- ✗ DO NOT: ใช้ switch สำหรับ multi-choice — ใช้ checkbox group แทน -->

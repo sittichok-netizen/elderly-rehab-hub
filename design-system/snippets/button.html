@@ -1,0 +1,61 @@
+<!-- ================================================================
+     SNIPPET: sensory-btn (Button)
+     Base:    .sensory-btn
+     Sizes:   is-sm (32px) | is-md (38px, default) | is-lg (44px) | is-block (100% width)
+     Variant: is-primary | is-secondary | is-ghost | is-danger | is-brand-soft
+     States:  disabled attr → opacity 0.5, cursor not-allowed
+              :focus-visible → shadow-focus ring (automatic)
+              :active → scale(0.975) press feedback (automatic)
+     A11y:    use <button type="button"> for actions, <button type="submit"> in forms
+              never use <div> or <a> for click-only buttons
+     ================================================================ -->
+
+<!-- Primary — กระทำหลัก (บันทึก, ส่งคำขอ, อนุมัติ) -->
+<button class="sensory-btn is-primary is-md" type="button">บันทึก</button>
+
+<!-- Secondary — กระทำรอง (ยกเลิก, ปิด) -->
+<button class="sensory-btn is-secondary is-md" type="button">ยกเลิก</button>
+
+<!-- Ghost — กระทำไม่เน้น (ดูทั้งหมด, โหลดเพิ่ม) -->
+<button class="sensory-btn is-ghost is-sm" type="button">ดูทั้งหมด</button>
+
+<!-- Danger — กระทำทำลาย / irreversible -->
+<button class="sensory-btn is-danger is-md" type="button">ลบบัญชี</button>
+
+<!-- Brand soft — secondary emphasis (ขอลา, เพิ่มพนักงาน) -->
+<button class="sensory-btn is-brand-soft is-md" type="button">+ ขอลา</button>
+
+<!-- Small -->
+<button class="sensory-btn is-secondary is-sm" type="button">แก้ไข</button>
+
+<!-- Large -->
+<button class="sensory-btn is-primary is-lg" type="button">เข้าสู่ระบบ</button>
+
+<!-- Full width (is-block) — เหมาะกับ form/modal footer -->
+<button class="sensory-btn is-primary is-lg is-block" type="button">ยืนยันการลา</button>
+
+<!-- With leading icon (Lucide) -->
+<button class="sensory-btn is-primary is-md" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+       fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+  </svg>
+  เพิ่มพนักงาน
+</button>
+
+<!-- Loading state (ใช้ disabled + เปลี่ยน text) -->
+<button class="sensory-btn is-primary is-md" type="button" disabled>
+  กำลังบันทึก...
+</button>
+
+<!-- ✓ DO: ใช้ action pair primary + secondary -->
+<div style="display:flex; gap:8px;">
+  <button class="sensory-btn is-primary is-md" type="submit">อนุมัติ</button>
+  <button class="sensory-btn is-secondary is-md" type="button">ปฏิเสธ</button>
+</div>
+
+<!-- ✗ DO NOT:
+  <button class="sensory-btn is-primary" style="background:#007bff">...</button>  ← override color
+  <div class="sensory-btn is-primary" onclick="...">...</div>                      ← ใช้ <div>
+  <button class="sensory-btn">...</button>                                         ← ไม่มี variant = ไม่มีสี
+-->

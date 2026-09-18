@@ -1,0 +1,76 @@
+<!-- @dsCard group="Type" viewport="700x190" name="Families — Google Sans / Google Sans Code" subtitle="Thai + Latin in one voice; mono for data" -->
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&display=swap" />
+<style>
+  html, body { margin: 0; }
+  body { padding: 24px; background: var(--surface-card); }
+  .blk { padding: 10px 0; }
+  .blk + .blk { border-top: 1px solid var(--border-subtle); }
+  .nm { font-family: var(--font-mono); font-size: 11px; color: var(--text-subtle); margin-bottom: 6px; }
+  .big { font-size: 30px; color: var(--text-heading); letter-spacing: -.01em; }
+  .mono { font-family: var(--font-mono); font-size: 22px; color: var(--text-heading); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="./tweaks-panel.jsx"></script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "family": "Google Sans",
+  "specimen": "ก ข ค Aa Bb Gg · HAH Sensory",
+  "weight": 400
+}/*EDITMODE-END*/;
+
+const STACKS = {
+  "Google Sans": "'Google Sans', 'Google Sans Text', sans-serif",
+  "Google Sans Text": "'Google Sans Text', 'Google Sans', sans-serif",
+};
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const stack = STACKS[t.family] || STACKS["Google Sans"];
+  return (
+    <>
+      <div className="blk">
+        <div className="nm">{t.family} — Sans (400–700)</div>
+        <div className="big" style={{ fontFamily: stack, fontWeight: t.weight }}>
+          {t.specimen} <span style={{ fontWeight: 700 }}>หนา</span>
+        </div>
+      </div>
+      <div className="blk">
+        <div className="nm">Google Sans Code — numerals &amp; IDs</div>
+        <div className="mono">EMP-04821 · 1,234.50 · 09:00–18:00</div>
+      </div>
+
+      <TweaksPanel>
+        <TweakSection label="ตัวอักษร" />
+        <TweakRadio label="ฟอนต์" value={t.family}
+          options={["Google Sans", "Google Sans Text"]}
+          onChange={(v) => setTweak("family", v)} />
+        <TweakSelect label="น้ำหนัก" value={t.weight}
+          options={[
+            { value: 400, label: "Regular 400" },
+            { value: 500, label: "Medium 500" },
+            { value: 600, label: "Semibold 600" },
+            { value: 700, label: "Bold 700" },
+          ]}
+          onChange={(v) => setTweak("weight", Number(v))} />
+        <TweakText label="ข้อความตัวอย่าง" value={t.specimen}
+          onChange={(v) => setTweak("specimen", v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

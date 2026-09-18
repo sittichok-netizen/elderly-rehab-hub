@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>แดชบอร์ด — HAH Sensory HR</title>
+  <!-- HAH Sensory Design System — CSS only, no React/Babel/bundle -->
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="page.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ── Sidebar ───────────────────────────────────────────── -->
+  <aside class="sidebar" aria-label="เมนูหลัก">
+    <div class="sidebar-brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 14c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08C16.71 18.72 14.5 20 12 20z"
+                fill="white" opacity="0.9"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">HAH Sensory</div>
+        <div class="brand-sub">HR Management</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <span class="nav-section">หลัก</span>
+
+      <a class="nav-item active" href="#" aria-current="page">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        แดชบอร์ด
+      </a>
+
+      <a class="nav-item" href="#">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        พนักงาน
+      </a>
+
+      <a class="nav-item" href="#">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        คำขอลา
+      </a>
+
+      <a class="nav-item" href="#">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        การอนุมัติ
+        <span class="nav-badge">3</span>
+      </a>
+
+      <span class="nav-section">รายงาน</span>
+
+      <a class="nav-item" href="#">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        รายงานการลา
+      </a>
+
+      <a class="nav-item" href="#">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        การประเมิน
+      </a>
+    </nav>
+
+    <div class="sidebar-user">
+      <div class="sensory-avatar sensory-avatar-status is-sm">นส</div>
+      <div style="min-width:0;">
+        <div class="u-name">นภา สวยงาม</div>
+        <div class="u-role">HR Manager</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main ──────────────────────────────────────────────── -->
+  <main class="main">
+    <header class="topbar">
+      <h1>แดชบอร์ด</h1>
+      <div class="spacer"></div>
+      <button class="sensory-btn is-brand-soft is-sm" type="button"
+              onclick="window.showToast('ฟีเจอร์นี้ยังไม่เปิดใช้งาน')">
+        + ขอลา
+      </button>
+      <button class="sensory-iconbtn is-solid is-md" type="button" aria-label="การแจ้งเตือน">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+    </header>
+
+    <div class="content">
+
+      <!-- Page head -->
+      <div class="page-head">
+        <div>
+          <h2>ภาพรวมวันนี้</h2>
+          <div class="sub">จันทร์ที่ 30 มิถุนายน 2568 · สัปดาห์ที่ 26</div>
+        </div>
+        <button class="sensory-btn is-secondary is-sm" type="button">ดูรายงานทั้งหมด</button>
+      </div>
+
+      <!-- Stats grid -->
+      <div class="stat-grid" role="list" aria-label="ตัวเลขสรุป">
+
+        <div class="sensory-card" role="listitem">
+          <div class="sensory-stat">
+            <div class="stat-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              พนักงานวันนี้
+            </div>
+            <div class="stat-value">48</div>
+            <div class="stat-delta up">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+              จาก 45 เมื่อวาน
+            </div>
+          </div>
+        </div>
+
+        <div class="sensory-card" role="listitem">
+          <div class="sensory-stat">
+            <div class="stat-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              ลาวันนี้
+            </div>
+            <div class="stat-value">5</div>
+            <div class="stat-delta down">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              เพิ่มขึ้นจาก 3 คน
+            </div>
+          </div>
+        </div>
+
+        <div class="sensory-card" role="listitem">
+          <div class="sensory-stat">
+            <div class="stat-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              รออนุมัติ
+            </div>
+            <div class="stat-value">3</div>
+            <div class="stat-delta" style="color:var(--text-muted);">คงที่จากเมื่อวาน</div>
+          </div>
+        </div>
+
+        <div class="sensory-card" role="listitem">
+          <div class="sensory-stat">
+            <div class="stat-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              ขาดงาน
+            </div>
+            <div class="stat-value" style="color:var(--status-danger-text);">2</div>
+            <div class="stat-delta down">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              เพิ่มขึ้น 1 คน
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /stat-grid -->
+
+      <!-- Two-column -->
+      <div class="two-col">
+
+        <!-- Left: Approvals + Employee table -->
+        <div style="display:flex; flex-direction:column; gap:16px;">
+
+          <!-- Pending approvals -->
+          <div class="sensory-card">
+            <div class="sensory-card-header">
+              <span class="sensory-card-title">รออนุมัติ</span>
+              <div class="sensory-tabs is-pill" role="tablist" aria-label="กรองคำขอ">
+                <button class="sensory-tab is-active" role="tab" aria-selected="true"
+                        aria-controls="req-all" id="rtab-all" type="button">
+                  ทั้งหมด <span class="tab-count">6</span>
+                </button>
+                <button class="sensory-tab" role="tab" aria-selected="false"
+                        aria-controls="req-pending" id="rtab-pending" type="button">
+                  รอ <span class="tab-count">3</span>
+                </button>
+                <button class="sensory-tab" role="tab" aria-selected="false"
+                        aria-controls="req-done" id="rtab-done" type="button">
+                  เสร็จ <span class="tab-count">3</span>
+                </button>
+              </div>
+            </div>
+
+            <div id="req-all" role="tabpanel" aria-labelledby="rtab-all">
+              <div class="req-row">
+                <div class="sensory-avatar is-sm">สช</div>
+                <div class="body">
+                  <div class="ttl">สมชาย ใจดี — ลาพักร้อน 3 วัน</div>
+                  <div class="meta">1–3 ก.ค. 2568 · ส่งเมื่อ 28 มิ.ย.</div>
+                </div>
+                <span class="sensory-badge tone-warning">รออนุมัติ</span>
+                <div class="actions">
+                  <button class="sensory-btn is-primary is-sm" type="button"
+                          onclick="window.showToast('✓ อนุมัติคำขอของสมชายแล้ว')">อนุมัติ</button>
+                  <button class="sensory-btn is-secondary is-sm" type="button"
+                          onclick="window.showToast('ปฏิเสธคำขอของสมชาย')">ปฏิเสธ</button>
+                </div>
+              </div>
+              <div class="req-row">
+                <div class="sensory-avatar is-sm">วม</div>
+                <div class="body">
+                  <div class="ttl">วีระ มั่นคง — ลาป่วย 1 วัน</div>
+                  <div class="meta">30 มิ.ย. 2568 · ส่งเมื่อ 29 มิ.ย.</div>
+                </div>
+                <span class="sensory-badge tone-warning">รออนุมัติ</span>
+                <div class="actions">
+                  <button class="sensory-btn is-primary is-sm" type="button"
+                          onclick="window.showToast('✓ อนุมัติคำขอของวีระแล้ว')">อนุมัติ</button>
+                  <button class="sensory-btn is-secondary is-sm" type="button"
+                          onclick="window.showToast('ปฏิเสธคำขอของวีระ')">ปฏิเสธ</button>
+                </div>
+              </div>
+              <div class="req-row">
+                <div class="sensory-avatar is-sm">กช</div>
+                <div class="body">
+                  <div class="ttl">กัญญา ชมเชย — ลากิจ 2 วัน</div>
+                  <div class="meta">2–3 ก.ค. 2568 · ส่งเมื่อ 29 มิ.ย.</div>
+                </div>
+                <span class="sensory-badge tone-warning">รออนุมัติ</span>
+                <div class="actions">
+                  <button class="sensory-btn is-primary is-sm" type="button"
+                          onclick="window.showToast('✓ อนุมัติคำขอของกัญญาแล้ว')">อนุมัติ</button>
+                  <button class="sensory-btn is-secondary is-sm" type="button"
+                          onclick="window.showToast('ปฏิเสธคำขอของกัญญา')">ปฏิเสธ</button>
+                </div>
+              </div>
+              <div class="req-row">
+                <div class="sensory-avatar is-sm">พร</div>
+                <div class="body">
+                  <div class="ttl">พรทิพย์ รักงาน — ลาพักร้อน 5 วัน</div>
+                  <div class="meta">7–11 ก.ค. 2568 · ส่งเมื่อ 27 มิ.ย.</div>
+                </div>
+                <span class="sensory-badge tone-success">อนุมัติแล้ว</span>
+                <div class="actions">
+                  <button class="sensory-btn is-ghost is-sm" type="button"
+                          onclick="window.showToast('ดูรายละเอียดคำขอ')">ดู</button>
+                </div>
+              </div>
+              <div class="req-row">
+                <div class="sensory-avatar is-sm">ธน</div>
+                <div class="body">
+                  <div class="ttl">ธนกร สุขใจ — ลาป่วย 1 วัน</div>
+                  <div class="meta">25 มิ.ย. 2568 · ส่งเมื่อ 24 มิ.ย.</div>
+                </div>
+                <span class="sensory-badge tone-success">อนุมัติแล้ว</span>
+                <div class="actions">
+                  <button class="sensory-btn is-ghost is-sm" type="button"
+                          onclick="window.showToast('ดูรายละเอียดคำขอ')">ดู</button>
+                </div>
+              </div>
+              <div class="req-row">
+                <div class="sensory-avatar is-sm">มน</div>
+                <div class="body">
+                  <div class="ttl">มนัส ดีใจ — ลากิจ 1 วัน</div>
+                  <div class="meta">20 มิ.ย. 2568 · ส่งเมื่อ 19 มิ.ย.</div>
+                </div>
+                <span class="sensory-badge tone-danger">ปฏิเสธ</span>
+                <div class="actions">
+                  <button class="sensory-btn is-ghost is-sm" type="button"
+                          onclick="window.showToast('ดูรายละเอียดคำขอ')">ดู</button>
+                </div>
+              </div>
+            </div>
+
+            <div id="req-pending" role="tabpanel" aria-labelledby="rtab-pending" hidden>
+              <div class="req-row">
+                <div class="sensory-avatar is-sm">สช</div>
+                <div class="body">
+                  <div class="ttl">สมชาย ใจดี — ลาพักร้อน 3 วัน</div>
+                  <div class="meta">1–3 ก.ค. 2568</div>
+                </div>
+                <span class="sensory-badge tone-warning">รออนุมัติ</span>
+                <div class="actions">
+                  <button class="sensory-btn is-primary is-sm" type="button"
+                          onclick="window.showToast('✓ อนุมัติแล้ว')">อนุมัติ</button>
+                  <button class="sensory-btn is-secondary is-sm" type="button"
+                          onclick="window.showToast('ปฏิเสธแล้ว')">ปฏิเสธ</button>
+                </div>
+              </div>
+              <div class="req-row">
+                <div class="sensory-avatar is-sm">วม</div>
+                <div class="body">
+                  <div class="ttl">วีระ มั่นคง — ลาป่วย 1 วัน</div>
+                  <div class="meta">30 มิ.ย. 2568</div>
+                </div>
+                <span class="sensory-badge tone-warning">รออนุมัติ</span>
+                <div class="actions">
+                  <button class="sensory-btn is-primary is-sm" type="button"
+                          onclick="window.showToast('✓ อนุมัติแล้ว')">อนุมัติ</button>
+                  <button class="sensory-btn is-secondary is-sm" type="button"
+                          onclick="window.showToast('ปฏิเสธแล้ว')">ปฏิเสธ</button>
+                </div>
+              </div>
+              <div class="req-row">
+                <div class="sensory-avatar is-sm">กช</div>
+                <div class="body">
+                  <div class="ttl">กัญญา ชมเชย — ลากิจ 2 วัน</div>
+                  <div class="meta">2–3 ก.ค. 2568</div>
+                </div>
+                <span class="sensory-badge tone-warning">รออนุมัติ</span>
+                <div class="actions">
+                  <button class="sensory-btn is-primary is-sm" type="button"
+                          onclick="window.showToast('✓ อนุมัติแล้ว')">อนุมัติ</button>
+                  <button class="sensory-btn is-secondary is-sm" type="button"
+                          onclick="window.showToast('ปฏิเสธแล้ว')">ปฏิเสธ</button>
+                </div>
+              </div>
+            </div>
+
+            <div id="req-done" role="tabpanel" aria-labelledby="rtab-done" hidden>
+              <div class="req-row">
+                <div class="sensory-avatar is-sm">พร</div>
+                <div class="body">
+                  <div class="ttl">พรทิพย์ รักงาน — ลาพักร้อน 5 วัน</div>
+                  <div class="meta">7–11 ก.ค. 2568</div>
+                </div>
+                <span class="sensory-badge tone-success">อนุมัติแล้ว</span>
+              </div>
+              <div class="req-row">
+                <div class="sensory-avatar is-sm">ธน</div>
+                <div class="body">
+                  <div class="ttl">ธนกร สุขใจ — ลาป่วย 1 วัน</div>
+                  <div class="meta">25 มิ.ย. 2568</div>
+                </div>
+                <span class="sensory-badge tone-success">อนุมัติแล้ว</span>
+              </div>
+              <div class="req-row">
+                <div class="sensory-avatar is-sm">มน</div>
+                <div class="body">
+                  <div class="ttl">มนัส ดีใจ — ลากิจ 1 วัน</div>
+                  <div class="meta">20 มิ.ย. 2568</div>
+                </div>
+                <span class="sensory-badge tone-danger">ปฏิเสธ</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Employee table -->
+          <div class="sensory-card">
+            <div class="sensory-card-header">
+              <span class="sensory-card-title">พนักงานทั้งหมด</span>
+              <button class="sensory-btn is-ghost is-sm" type="button">ดูทั้งหมด</button>
+            </div>
+            <table class="table" aria-label="รายชื่อพนักงาน">
+              <thead>
+                <tr>
+                  <th scope="col">พนักงาน</th>
+                  <th scope="col">แผนก</th>
+                  <th scope="col">วันลาคงเหลือ</th>
+                  <th scope="col">สถานะ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-row-drawer="emp-drawer" data-name="สมชาย ใจดี"
+                    data-dept="ทรัพยากรบุคคล" data-position="HR Manager"
+                    data-emp-id="EMP-04821" data-status="มาทำงาน" data-leave="8 / 10 วัน"
+                    aria-label="ดูรายละเอียด สมชาย ใจดี">
+                  <td><div class="cell-person"><div class="sensory-avatar is-sm">สช</div><div><div class="nm">สมชาย ใจดี</div><div class="id">EMP-04821</div></div></div></td>
+                  <td>ทรัพยากรบุคคล</td>
+                  <td><span class="mono">8</span> <span style="color:var(--text-muted);font-size:var(--text-xs);">/ 10</span></td>
+                  <td><span class="sensory-badge tone-success"><span class="dot"></span>มาทำงาน</span></td>
+                </tr>
+                <tr data-row-drawer="emp-drawer" data-name="นภา สวยงาม"
+                    data-dept="การเงิน" data-position="Senior Accountant"
+                    data-emp-id="EMP-03102" data-status="ลาพักร้อน" data-leave="2 / 10 วัน"
+                    aria-label="ดูรายละเอียด นภา สวยงาม">
+                  <td><div class="cell-person"><div class="sensory-avatar is-sm">นส</div><div><div class="nm">นภา สวยงาม</div><div class="id">EMP-03102</div></div></div></td>
+                  <td>การเงิน</td>
+                  <td><span class="mono">2</span> <span style="color:var(--text-muted);font-size:var(--text-xs);">/ 10</span></td>
+                  <td><span class="sensory-badge tone-warning"><span class="dot"></span>ลาพักร้อน</span></td>
+                </tr>
+                <tr data-row-drawer="emp-drawer" data-name="วีระ มั่นคง"
+                    data-dept="เทคโนโลยีสารสนเทศ" data-position="Full-Stack Developer"
+                    data-emp-id="EMP-05567" data-status="ขาดงาน" data-leave="0 / 10 วัน"
+                    aria-label="ดูรายละเอียด วีระ มั่นคง">
+                  <td><div class="cell-person"><div class="sensory-avatar is-sm">วม</div><div><div class="nm">วีระ มั่นคง</div><div class="id">EMP-05567</div></div></div></td>
+                  <td>เทคโนโลยีสารสนเทศ</td>
+                  <td><span class="mono" style="color:var(--status-danger-text);">0</span> <span style="color:var(--text-muted);font-size:var(--text-xs);">/ 10</span></td>
+                  <td><span class="sensory-badge tone-danger"><span class="dot"></span>ขาดงาน</span></td>
+                </tr>
+                <tr data-row-drawer="emp-drawer" data-name="กัญญา ชมเชย"
+                    data-dept="การตลาด" data-position="Marketing Lead"
+                    data-emp-id="EMP-02891" data-status="มาทำงาน" data-leave="6 / 10 วัน"
+                    aria-label="ดูรายละเอียด กัญญา ชมเชย">
+                  <td><div class="cell-person"><div class="sensory-avatar is-sm">กช</div><div><div class="nm">กัญญา ชมเชย</div><div class="id">EMP-02891</div></div></div></td>
+                  <td>การตลาด</td>
+                  <td><span class="mono">6</span> <span style="color:var(--text-muted);font-size:var(--text-xs);">/ 10</span></td>
+                  <td><span class="sensory-badge tone-success"><span class="dot"></span>มาทำงาน</span></td>
+                </tr>
+                <tr data-row-drawer="emp-drawer" data-name="พรทิพย์ รักงาน"
+                    data-dept="ปฏิบัติการ" data-position="Operations Manager"
+                    data-emp-id="EMP-01234" data-status="ลาพักร้อน" data-leave="1 / 10 วัน"
+                    aria-label="ดูรายละเอียด พรทิพย์ รักงาน">
+                  <td><div class="cell-person"><div class="sensory-avatar is-sm">พร</div><div><div class="nm">พรทิพย์ รักงาน</div><div class="id">EMP-01234</div></div></div></td>
+                  <td>ปฏิบัติการ</td>
+                  <td><span class="mono">1</span> <span style="color:var(--text-muted);font-size:var(--text-xs);">/ 10</span></td>
+                  <td><span class="sensory-badge tone-warning"><span class="dot"></span>ลาพักร้อน</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div><!-- /left col -->
+
+        <!-- Right: Leave balance + alert -->
+        <div style="display:flex; flex-direction:column; gap:16px;">
+
+          <div class="sensory-alert tone-warning" role="status">
+            <span class="alert-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </span>
+            <div>
+              <div class="alert-title">วันลาเกือบหมด</div>
+              <div class="alert-body">มีพนักงาน 2 คนที่เหลือวันลาน้อยกว่า 2 วัน</div>
+            </div>
+          </div>
+
+          <!-- Leave balance card -->
+          <div class="sensory-card">
+            <div class="sensory-card-header">
+              <span class="sensory-card-title">วันลาคงเหลือ (ฉัน)</span>
+            </div>
+            <div class="sensory-card-pad" style="display:flex; flex-direction:column; gap:0;">
+              <div class="leave-row">
+                <span class="lbl">ลาพักร้อน</span>
+                <div class="bar">
+                  <div class="sensory-progress" style="margin:0 12px;">
+                    <div class="fill" style="width:80%;"></div>
+                  </div>
+                </div>
+                <span class="val">8 / 10</span>
+              </div>
+              <div class="leave-row">
+                <span class="lbl">ลาป่วย</span>
+                <div class="bar">
+                  <div class="sensory-progress" style="margin:0 12px;">
+                    <div class="fill tone-success" style="width:100%;"></div>
+                  </div>
+                </div>
+                <span class="val">30 / 30</span>
+              </div>
+              <div class="leave-row">
+                <span class="lbl">ลากิจ</span>
+                <div class="bar">
+                  <div class="sensory-progress" style="margin:0 12px;">
+                    <div class="fill tone-warning" style="width:40%;"></div>
+                  </div>
+                </div>
+                <span class="val">2 / 5</span>
+              </div>
+              <div class="leave-row">
+                <span class="lbl">ลาคลอด</span>
+                <div class="bar">
+                  <div class="sensory-progress" style="margin:0 12px;">
+                    <div class="fill" style="width:0%;"></div>
+                  </div>
+                </div>
+                <span class="val" style="color:var(--text-muted);">0 / 98</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick stats -->
+          <div class="sensory-card sensory-card-pad">
+            <div style="font-size:var(--text-sm); font-weight:var(--fw-semibold); color:var(--text-heading); margin-bottom:12px;">สรุปเดือนนี้</div>
+            <div style="display:flex; flex-direction:column; gap:0;">
+              <div class="kv">
+                <span class="k">คำขอลาทั้งหมด</span>
+                <span class="v">24 รายการ</span>
+              </div>
+              <div class="kv">
+                <span class="k">อนุมัติแล้ว</span>
+                <span class="v" style="color:var(--status-success-text);">18 รายการ</span>
+              </div>
+              <div class="kv">
+                <span class="k">รออนุมัติ</span>
+                <span class="v" style="color:var(--status-warning-text);">3 รายการ</span>
+              </div>
+              <div class="kv">
+                <span class="k">ปฏิเสธ</span>
+                <span class="v" style="color:var(--status-danger-text);">3 รายการ</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Avatar group summary -->
+          <div class="sensory-card sensory-card-pad">
+            <div style="font-size:var(--text-sm); font-weight:var(--fw-semibold); color:var(--text-heading); margin-bottom:10px;">ลาวันนี้</div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div class="sensory-avatar-group">
+                <div class="sensory-avatar is-sm" title="นภา สวยงาม">นส</div>
+                <div class="sensory-avatar is-sm" title="พรทิพย์ รักงาน">พร</div>
+                <div class="sensory-avatar is-sm" style="background:var(--surface-sunken); color:var(--text-muted); font-size:10px;">+3</div>
+              </div>
+              <span style="font-size:var(--text-sm); color:var(--text-muted);">พนักงาน 5 คนลาวันนี้</span>
+            </div>
+          </div>
+
+        </div><!-- /right col -->
+      </div><!-- /two-col -->
+
+    </div><!-- /content -->
+  </main>
+
+</div><!-- /app -->
+
+<!-- ── Employee Drawer ──────────────────────────────────── -->
+<div class="drawer-scrim" id="emp-drawer-scrim" aria-hidden="true"
+     data-drawer-scrim="emp-drawer"></div>
+
+<div class="drawer" id="emp-drawer"
+     role="dialog" aria-modal="true" aria-labelledby="emp-drawer-title"
+     aria-hidden="true">
+  <div class="drawer-head">
+    <h2 id="emp-drawer-title">รายละเอียดพนักงาน</h2>
+    <button class="sensory-iconbtn is-md" type="button"
+            data-drawer-close="emp-drawer" aria-label="ปิด">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <div class="drawer-body">
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div class="sensory-avatar is-lg" id="d-avatar">สช</div>
+      <div>
+        <div style="font-size:var(--text-lg); font-weight:var(--fw-semibold); color:var(--text-heading);"
+             id="d-name">สมชาย ใจดี</div>
+        <div style="font-size:var(--text-sm); color:var(--text-muted); margin-top:2px;"
+             id="d-dept">ทรัพยากรบุคคล · HR Manager</div>
+        <span class="sensory-badge tone-success" id="d-status-badge" style="margin-top:6px;">
+          <span class="dot"></span>มาทำงาน
+        </span>
+      </div>
+    </div>
+    <div>
+      <div class="kv"><span class="k">รหัสพนักงาน</span><span class="v mono" id="d-emp-id">EMP-04821</span></div>
+      <div class="kv"><span class="k">วันลาคงเหลือ</span><span class="v" id="d-leave">8 / 10 วัน</span></div>
+      <div class="kv"><span class="k">ผู้อนุมัติ</span><span class="v">นางสาวนภา ใจงาม</span></div>
+      <div class="kv"><span class="k">วันเริ่มงาน</span><span class="v">1 มิ.ย. 2563</span></div>
+    </div>
+    <div class="sensory-alert tone-info" role="status">
+      <span class="alert-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </span>
+      <div class="alert-body">มีคำขอลารออนุมัติ 1 รายการ</div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="sensory-btn is-secondary is-md" type="button"
+            data-drawer-close="emp-drawer">ปิด</button>
+    <button class="sensory-btn is-primary is-md" type="button"
+            onclick="window.showToast('✓ อนุมัติคำขอแล้ว'); document.querySelector('[data-drawer-close=\'emp-drawer\']').click();">
+      อนุมัติคำขอ
+    </button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="app-toast" role="status" aria-live="polite">
+  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+       fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+  </svg>
+  <span class="toast-msg"></span>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

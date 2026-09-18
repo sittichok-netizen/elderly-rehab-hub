@@ -1,0 +1,88 @@
+<!-- ================================================================
+     SNIPPET: sensory-alert
+     Base:    .sensory-alert
+     Tone:    tone-info | tone-success | tone-warning | tone-danger
+     Parts:   .alert-icon (flex:none, margin-top:1px)
+              .alert-title (semibold heading — optional)
+              .alert-body (body text)
+     A11y:    ใช้ role="alert" สำหรับ error/danger ที่ต้องการ announce ทันที
+              ใช้ role="status" + aria-live="polite" สำหรับ success/info
+     ================================================================ -->
+
+<!-- Info -->
+<div class="sensory-alert tone-info" role="status">
+  <span class="alert-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+  </span>
+  <div>
+    <div class="alert-title">ข้อมูล</div>
+    <div class="alert-body">ระบบจะปิดปรับปรุงในวันอาทิตย์ที่ 6 กรกฎาคม เวลา 22:00–02:00 น.</div>
+  </div>
+</div>
+
+<!-- Success -->
+<div class="sensory-alert tone-success" role="status" aria-live="polite">
+  <span class="alert-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+      <polyline points="22 4 12 14.01 9 11.01"/>
+    </svg>
+  </span>
+  <div>
+    <div class="alert-title">ส่งคำขอลาแล้ว</div>
+    <div class="alert-body">คำขอลาของคุณถูกส่งไปยังผู้อนุมัติแล้ว รอการพิจารณาภายใน 1–2 วันทำการ</div>
+  </div>
+</div>
+
+<!-- Warning -->
+<div class="sensory-alert tone-warning" role="status">
+  <span class="alert-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+    </svg>
+  </span>
+  <div>
+    <div class="alert-title">วันลาเกือบหมด</div>
+    <div class="alert-body">คุณมีวันลาพักร้อนคงเหลือ 2 วัน ปรึกษา HR หากต้องการขอยืมวันลาล่วงหน้า</div>
+  </div>
+</div>
+
+<!-- Danger / Error -->
+<div class="sensory-alert tone-danger" role="alert">
+  <span class="alert-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+  </span>
+  <div>
+    <div class="alert-title">ส่งคำขอไม่สำเร็จ</div>
+    <div class="alert-body">ไม่สามารถส่งคำขอลาได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง หากยังพบปัญหาโปรดติดต่อ IT</div>
+  </div>
+</div>
+
+<!-- Alert without title (simple inline message) -->
+<div class="sensory-alert tone-warning" role="status">
+  <span class="alert-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+    </svg>
+  </span>
+  <div class="alert-body">วันที่เริ่มลาต้องไม่ย้อนหลังเกิน 7 วัน</div>
+</div>
+
+<!-- ✓ DO: tone-danger + role="alert" สำหรับ error ที่ต้องให้ screen reader อ่านทันที -->
+<!-- ✓ DO: tone-success/info + role="status" + aria-live="polite" สำหรับ feedback ทั่วไป -->
+<!-- ✓ DO: .alert-title เป็น optional — ถ้า message สั้นพอใช้แค่ .alert-body -->
+<!-- ✗ DO NOT: ใช้ tone-danger สำหรับ warning — tone ต้องตรงกับ severity จริง -->
+<!-- ✗ DO NOT: ซ่อน/แสดง alert ด้วย visibility:hidden — ใช้ display:none หรือ hidden attr -->

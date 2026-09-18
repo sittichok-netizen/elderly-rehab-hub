@@ -1,0 +1,82 @@
+<!-- @dsCard group="Components" viewport="700x600" name="Forms & Inputs" subtitle="Button, IconButton, Input, Select, Checkbox, Radio, Switch" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../../styles.css" />
+<style>
+  body { margin: 0; padding: 28px; background: var(--surface-app); }
+  .wrap { display: flex; flex-direction: column; gap: 26px; max-width: 640px; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .lbl { font-size: var(--text-2xs); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--text-subtle); margin-bottom: 10px; }
+  .group + .group { border-top: 1px solid var(--border-subtle); padding-top: 22px; }
+  [data-lucide] { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+<div id="root" class="wrap"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="../../../_ds_bundle.js"></script>
+<script type="text/babel">
+const { Button, IconButton, Input, Select, Checkbox, Radio, Switch } = window.HAHSensoryDS;
+const I = (n) => <i data-lucide={n}></i>;
+
+function Demo() {
+  const [sw1, setSw1] = React.useState(true);
+  const [sw2, setSw2] = React.useState(false);
+  const [ck, setCk] = React.useState(true);
+  return (
+    <>
+      <div className="group">
+        <div className="lbl">Button — variants</div>
+        <div className="row">
+          <Button variant="primary">บันทึก</Button>
+          <Button variant="secondary">ยกเลิก</Button>
+          <Button variant="ghost">ข้าม</Button>
+          <Button variant="brand-soft">ดูรายละเอียด</Button>
+          <Button variant="danger">ปฏิเสธ</Button>
+          <Button variant="primary" disabled>ปิดใช้งาน</Button>
+        </div>
+      </div>
+      <div className="group">
+        <div className="lbl">Button — sizes & icons</div>
+        <div className="row">
+          <Button size="sm" variant="secondary">เล็ก</Button>
+          <Button size="md" leadingIcon={I("plus")}>ขอลา</Button>
+          <Button size="lg" variant="primary" trailingIcon={I("arrow-right")}>ถัดไป</Button>
+          <IconButton aria-label="แก้ไข" solid>{I("pencil")}</IconButton>
+          <IconButton aria-label="เพิ่มเติม">{I("more-horizontal")}</IconButton>
+        </div>
+      </div>
+      <div className="group">
+        <div className="lbl">Inputs</div>
+        <div className="grid2">
+          <Input label="ชื่อ-นามสกุล" placeholder="สมชาย ใจดี" />
+          <Input label="ค้นหา" leadingIcon={I("search")} placeholder="ค้นหาพนักงาน" />
+          <Select label="ประเภทการลา" options={["ลาป่วย","ลากิจ","ลาพักร้อน"]} />
+          <Input label="เลขบัตรประชาชน" error="รูปแบบไม่ถูกต้อง" defaultValue="123" />
+        </div>
+      </div>
+      <div className="group">
+        <div className="lbl">Selection controls</div>
+        <div className="row" style={{ gap: 24 }}>
+          <Checkbox label="ยอมรับนโยบาย" checked={ck} onChange={e=>setCk(e.target.checked)} />
+          <Radio name="d" label="เต็มวัน" defaultChecked />
+          <Radio name="d" label="ครึ่งวัน" />
+          <Switch label="แจ้งเตือนอีเมล" checked={sw1} onChange={e=>setSw1(e.target.checked)} />
+          <Switch label="ปิดใช้งาน" checked={sw2} onChange={e=>setSw2(e.target.checked)} disabled />
+        </div>
+      </div>
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+setTimeout(() => window.lucide && window.lucide.createIcons(), 50);
+</script>
+</body>
+</html>

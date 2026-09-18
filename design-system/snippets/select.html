@@ -1,0 +1,61 @@
+<!-- ================================================================
+     SNIPPET: sensory-select
+     Base:    .sensory-select  (height 38px, custom arrow SVG)
+     Wrapper: .sensory-field + .sensory-label + .sensory-hint (เหมือน input)
+     Error:   .has-error บน .sensory-select
+     States:  :disabled → sunken bg, cursor not-allowed
+     A11y:    ต้องมี <label for=...> เสมอ
+              ใช้ <option value="">placeholder option (disabled selected)</option>
+     ================================================================ -->
+
+<!-- Standard select -->
+<div class="sensory-field">
+  <label class="sensory-label" for="leave-type">ประเภทการลา <span class="req">*</span></label>
+  <select class="sensory-select" id="leave-type">
+    <option value="" disabled selected>เลือกประเภทการลา</option>
+    <option value="annual">ลาพักร้อน</option>
+    <option value="sick">ลาป่วย</option>
+    <option value="personal">ลากิจ</option>
+    <option value="maternity">ลาคลอด</option>
+    <option value="ordination">ลาอุปสมบท</option>
+  </select>
+</div>
+
+<!-- Select with hint -->
+<div class="sensory-field">
+  <label class="sensory-label" for="department">แผนก</label>
+  <select class="sensory-select" id="department">
+    <option value="" disabled selected>เลือกแผนก</option>
+    <option value="hr">ทรัพยากรบุคคล</option>
+    <option value="it">เทคโนโลยีสารสนเทศ</option>
+    <option value="finance">การเงิน</option>
+    <option value="ops">ปฏิบัติการ</option>
+    <option value="marketing">การตลาด</option>
+  </select>
+  <span class="sensory-hint">เลือกแผนกที่พนักงานสังกัด</span>
+</div>
+
+<!-- Select with error -->
+<div class="sensory-field">
+  <label class="sensory-label" for="approver">ผู้อนุมัติ <span class="req">*</span></label>
+  <select class="sensory-select has-error" id="approver" aria-describedby="approver-err">
+    <option value="" disabled selected>เลือกผู้อนุมัติ</option>
+    <option value="mgr1">นายสมศักดิ์ วงศ์ดี</option>
+    <option value="mgr2">นางสาวนภา ใจงาม</option>
+  </select>
+  <span class="sensory-hint is-error" id="approver-err" role="alert">กรุณาเลือกผู้อนุมัติ</span>
+</div>
+
+<!-- Disabled select -->
+<div class="sensory-field">
+  <label class="sensory-label" for="company">บริษัท</label>
+  <select class="sensory-select" id="company" disabled>
+    <option>Health at Home Co., Ltd.</option>
+  </select>
+  <span class="sensory-hint">กำหนดโดยระบบ</span>
+</div>
+
+<!-- ✓ DO: ใส่ <option value="" disabled selected> เป็น placeholder เสมอ -->
+<!-- ✓ DO: ใช้ .sensory-field wrapper เพื่อ gap/spacing ที่ถูกต้อง -->
+<!-- ✗ DO NOT: ซ่อน native select แล้วสร้าง custom dropdown ด้วย div/ul -->
+<!--           (ยกเว้น Phase 3 — sensory-ui.js จะมี dropdown component ที่ถูกต้อง) -->

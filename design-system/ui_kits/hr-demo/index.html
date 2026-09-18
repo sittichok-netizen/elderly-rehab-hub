@@ -1,0 +1,129 @@
+<!-- @dsCard group="HAH Sensory App" viewport="1280x800" name="HAH Sensory — Application" subtitle="Self-service HRM: dashboard, leave, approvals, people" -->
+<!-- @startingPoint section="HAH Sensory App" subtitle="Full HRM app shell with dashboard, leave & approvals" viewport="1280x800" -->
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HAH Sensory</title>
+<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="kit.css" />
+<style>
+  html, body { margin: 0; }
+  [data-lucide] { display: inline-flex; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+
+<script type="text/babel" src="Shell.jsx"></script>
+<script type="text/babel" src="Dashboard.jsx"></script>
+<script type="text/babel" src="LeaveRequest.jsx"></script>
+<script type="text/babel" src="Approvals.jsx"></script>
+<script type="text/babel" src="People.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+const { Button: AppButton, Badge: AppBadge, Avatar: AppAvatar } = window.HAHSensoryDS;
+
+const TITLES = {
+  dashboard: "หน้าหลัก", leave: "การลา", approvals: "รออนุมัติ",
+  people: "พนักงาน", evaluation: "ประเมินผล", reports: "รายงาน", settings: "ตั้งค่า",
+};
+
+const INITIAL_PENDING = [
+  { id: 1, name: "สุดา รักงาน", type: "ลาพักร้อน", days: "3 วัน", when: "12–14 ก.ค. 2568", reason: "เดินทางต่างจังหวัดกับครอบครัว", duration: "เต็มวัน" },
+  { id: 2, name: "กิตติ การะเกตุ", type: "ลากิจ", days: "1 วัน", when: "15 ก.ค. 2568", reason: "ติดต่อราชการ", duration: "ครึ่งวันเช้า" },
+  { id: 3, name: "มานี ดีงาม", type: "ลาป่วย", days: "2 วัน", when: "9–10 ก.ค. 2568", reason: "พักฟื้นตามใบรับรองแพทย์", duration: "เต็มวัน" },
+  { id: 4, name: "Ravi Kumar", type: "ลาพักร้อน", days: "5 วัน", when: "21–25 ก.ค. 2568", reason: "Annual leave", duration: "เต็มวัน" },
+];
+
+function Drawer({ req, onClose, onAction }) {
+  return (
+    <>
+      <div className={"drawer-scrim" + (req ? " open" : "")} onClick={onClose} />
+      <div className={"drawer" + (req ? " open" : "")}>
+        {req ? (
+          <>
+            <div className="drawer-head">
+              <h2>รายละเอียดคำขอ</h2>
+              <button className="sensory-iconbtn is-sm" aria-label="ปิด" onClick={onClose}><KitIcon n="x" /></button>
+            </div>
+            <div className="drawer-body">
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <AppAvatar name={req.name} size="lg" />
+                <div>
+                  <div style={{ fontWeight: 600, fontSize: "var(--text-md)", color: "var(--text-heading)" }}>{req.name}</div>
+                  <div style={{ fontSize: "var(--text-sm)", color: "var(--text-muted)" }}>{req.type}</div>
+                </div>
+                <div style={{ marginLeft: "auto" }}><AppBadge tone="warning" dot>รออนุมัติ</AppBadge></div>
+              </div>
+              <div>
+                <div className="kv"><span className="k">ประเภท</span><span className="v">{req.type}</span></div>
+                <div className="kv"><span className="k">ช่วงวันที่</span><span className="v">{req.when}</span></div>
+                <div className="kv"><span className="k">จำนวน</span><span className="v">{req.days}</span></div>
+                <div className="kv"><span className="k">ระยะเวลา</span><span className="v">{req.duration}</span></div>
+                <div className="kv"><span className="k">เหตุผล</span><span className="v" style={{ maxWidth: 220, textAlign: "right" }}>{req.reason}</span></div>
+              </div>
+            </div>
+            <div className="drawer-foot">
+              <AppButton variant="secondary" onClick={() => onAction(req.id, "reject")}>ปฏิเสธ</AppButton>
+              <AppButton variant="primary" leadingIcon={<KitIcon n="check" />} onClick={() => onAction(req.id, "approve")}>อนุมัติ</AppButton>
+            </div>
+          </>
+        ) : null}
+      </div>
+    </>
+  );
+}
+
+function App() {
+  const [screen, setScreen] = React.useState("dashboard");
+  const [pending, setPending] = React.useState(INITIAL_PENDING);
+  const [drawerReq, setDrawerReq] = React.useState(null);
+  const [toast, setToast] = React.useState({ msg: "", show: false });
+
+  const fireToast = (msg) => {
+    setToast({ msg, show: true });
+    clearTimeout(window.__bt);
+    window.__bt = setTimeout(() => setToast((t) => ({ ...t, show: false })), 2600);
+  };
+
+  const handleAction = (id, action) => {
+    setPending((p) => p.filter((r) => r.id !== id));
+    setDrawerReq(null);
+    fireToast(action === "approve" ? "✓ อนุมัติคำขอแล้ว" : "ปฏิเสธคำขอแล้ว");
+  };
+
+  React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
+
+  return (
+    <div className="app">
+      <Sidebar active={screen} onNav={setScreen} pendingCount={pending.length} />
+      <div className="main">
+        <Topbar title={TITLES[screen]} />
+        {screen === "dashboard" && <Dashboard onNav={setScreen} />}
+        {screen === "leave" && <LeaveRequest onSubmit={() => { fireToast("✓ ส่งคำขอลาแล้ว รอการอนุมัติ"); setScreen("dashboard"); }} onCancel={() => setScreen("dashboard")} />}
+        {screen === "approvals" && <Approvals pending={pending} onAction={handleAction} onOpen={setDrawerReq} />}
+        {screen === "people" && <People />}
+        {["evaluation", "reports", "settings"].includes(screen) && (
+          <div className="content"><div className="empty" style={{ padding: 80 }}>
+            <KitIcon n="construction" /><div style={{ marginTop: 12 }}>หน้า “{TITLES[screen]}” อยู่ระหว่างการพัฒนา</div>
+          </div></div>
+        )}
+      </div>
+      <Drawer req={drawerReq} onClose={() => setDrawerReq(null)} onAction={handleAction} />
+      <div className={"toast" + (toast.show ? " show" : "")}>{toast.msg}</div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

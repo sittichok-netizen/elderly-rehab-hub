@@ -1,0 +1,142 @@
+<!--
+  COMPONENT: Modal
+  Base class:   .sensory-modal
+  Scrim class:  .sensory-modal-scrim
+  State:        .is-open  (add to BOTH scrim and modal)
+  Sizes:        .is-sm (400px max)  |  default (560px)  |  .is-lg (720px)
+  Sub-elements: .sensory-modal-head  .sensory-modal-body  .sensory-modal-foot
+  JS:           SensoryUI.modal.open("modal-id", triggerEl)
+                SensoryUI.modal.close("modal-id")
+                data-modal-open="id"   data-modal-close="id"   data-modal-scrim="id"
+  A11y:         role="dialog"  aria-modal="true"  aria-labelledby="modal-title-id"
+                focus moves to first focusable child on open
+                focus returns to trigger on close
+                Escape key closes
+-->
+
+<!-- ── Trigger ──────────────────────────────────────────────── -->
+<button class="sensory-btn is-primary" data-modal-open="confirm-modal">
+  ยืนยันการอนุมัติ
+</button>
+
+<!-- ── Scrim + Modal (place at end of <body>) ──────────────── -->
+<div class="sensory-modal-scrim" id="confirm-modal-scrim" data-modal-scrim="confirm-modal" aria-hidden="true"></div>
+
+<div class="sensory-modal"
+     id="confirm-modal"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="confirm-modal-title"
+     aria-hidden="true">
+
+  <div class="sensory-modal-head">
+    <h2 class="sensory-modal-title" id="confirm-modal-title">ยืนยันการอนุมัติ</h2>
+    <button class="sensory-btn is-ghost is-sm sensory-modal-close"
+            data-modal-close="confirm-modal"
+            aria-label="ปิด">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+           viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="sensory-modal-body">
+    <p>คุณกำลังจะอนุมัติการลาของ <strong>นางสาวพิมพ์ใจ รักษ์ดี</strong></p>
+    <p style="color: var(--text-muted); font-size: var(--text-sm); margin-top: var(--space-2);">
+      ลาพักร้อน 3 วัน (2–4 ก.ค. 2568) — การดำเนินการนี้ไม่สามารถยกเลิกได้
+    </p>
+  </div>
+
+  <div class="sensory-modal-foot">
+    <button class="sensory-btn is-secondary" data-modal-close="confirm-modal">
+      ยกเลิก
+    </button>
+    <button class="sensory-btn is-primary" id="confirm-approve-btn">
+      อนุมัติ
+    </button>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────────────────────────────────
+  VARIANT: Large modal (.is-lg)
+──────────────────────────────────────────────────────────────── -->
+<div class="sensory-modal is-lg"
+     id="employee-detail-modal"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="emp-modal-title"
+     aria-hidden="true">
+
+  <div class="sensory-modal-head">
+    <h2 id="emp-modal-title">รายละเอียดพนักงาน</h2>
+    <button class="sensory-btn is-ghost is-sm"
+            data-modal-close="employee-detail-modal"
+            aria-label="ปิด">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+           viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="sensory-modal-body">
+    <!-- modal body content here -->
+  </div>
+
+  <div class="sensory-modal-foot">
+    <button class="sensory-btn is-secondary" data-modal-close="employee-detail-modal">
+      ปิด
+    </button>
+    <button class="sensory-btn is-primary">บันทึก</button>
+  </div>
+</div>
+
+
+<!--
+  CLASS CONTRACT
+  ─────────────────────────────────────────────────────
+  .sensory-modal-scrim
+    - fixed full-screen overlay, backdrop-filter blur
+    - opacity transition on .is-open
+    - wire: data-modal-scrim="[modal-id]"
+
+  .sensory-modal
+    - centered, responsive, scroll-aware
+    - scale + opacity entrance animation
+    - .is-sm  →  max-width 400px
+    - (default) → max-width 560px
+    - .is-lg  →  max-width 720px
+
+  .sensory-modal-head
+    - flex row, space-between, with close button slot
+
+  .sensory-modal-body
+    - scrolls independently if content overflows
+
+  .sensory-modal-foot
+    - flex row, end-aligned, gap-3
+    - convention: secondary (cancel) first, primary (action) last
+
+  A11Y NOTES
+  ─────────────────────────────────────────────────────
+  ✓ role="dialog" + aria-modal="true" required
+  ✓ aria-labelledby must point to the visible title element
+  ✓ Focus traps inside modal while open (SensoryUI handles)
+  ✓ Escape closes; close button returns focus to trigger
+  ✓ Don't use <dialog> element — use .sensory-modal + SensoryUI
+
+  DO / DON'T
+  ─────────────────────────────────────────────────────
+  ✓ Place scrim + modal as siblings at bottom of <body>
+  ✓ Give scrim id = "[modal-id]-scrim" (SensoryUI auto-links)
+  ✓ Primary action on the RIGHT in .sensory-modal-foot
+  ✗ Don't nest modals
+  ✗ Don't put overflow:hidden on body yourself (SensoryUI handles)
+  ✗ Don't use modal for simple toast/confirmation — use toast() instead
+-->

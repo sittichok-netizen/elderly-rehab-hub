@@ -1,0 +1,178 @@
+<!-- ================================================================
+     SNIPPET: Drawer (Side Panel)
+     Source:  ui_kits/hr-demo/kit.css — ต้อง copy CSS ด้านล่าง หรือ link kit.css
+     Classes: .drawer-scrim (overlay) + .drawer (panel)
+              .open = visible state (toggle ด้วย JS)
+     Parts:   .drawer-head (title + close btn)
+              .drawer-body (scrollable content)
+              .drawer-foot (action buttons)
+     A11y:    drawer ต้องมี role="dialog" + aria-modal="true" + aria-labelledby
+              focus trap: เมื่อเปิด focus ไปที่ element แรกใน drawer
+              Escape key: ปิด drawer
+              เมื่อปิด: return focus กลับ trigger element
+     ================================================================ -->
+
+<!--
+  COPY CSS นี้ถ้าไม่ได้ link kit.css:
+
+  .drawer-scrim { position:fixed; inset:0; background:oklch(20% 0.02 250 / 0.35);
+    backdrop-filter:blur(2px); z-index:var(--z-overlay);
+    opacity:0; pointer-events:none; transition:opacity var(--dur-moderate) var(--ease-out); }
+  .drawer-scrim.open { opacity:1; pointer-events:auto; }
+  .drawer { position:fixed; top:0; right:0; bottom:0; width:440px; max-width:92vw;
+    background:var(--surface-card); box-shadow:var(--shadow-xl); z-index:var(--z-modal);
+    display:flex; flex-direction:column;
+    transform:translateX(100%); transition:transform var(--dur-moderate) var(--ease-drawer); }
+  .drawer.open { transform:translateX(0); }
+  .drawer-head { display:flex; align-items:center; justify-content:space-between;
+    padding:20px 22px; border-bottom:1px solid var(--border-subtle); }
+  .drawer-head h2 { font-size:var(--text-lg); font-weight:600; }
+  .drawer-body { padding:22px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:18px; }
+  .drawer-foot { padding:16px 22px; border-top:1px solid var(--border-subtle);
+    display:flex; gap:10px; justify-content:flex-end; }
+-->
+
+<!-- Trigger button -->
+<button class="sensory-btn is-secondary is-md" type="button"
+        id="open-drawer-btn" aria-haspopup="dialog">
+  ดูรายละเอียด
+</button>
+
+<!-- Scrim (overlay) -->
+<div class="drawer-scrim" id="drawer-scrim" aria-hidden="true"></div>
+
+<!-- Drawer panel -->
+<div class="drawer" id="employee-drawer"
+     role="dialog" aria-modal="true" aria-labelledby="drawer-title"
+     aria-hidden="true">
+
+  <div class="drawer-head">
+    <h2 id="drawer-title">รายละเอียดพนักงาน</h2>
+    <button class="sensory-iconbtn is-md" type="button"
+            id="close-drawer-btn" aria-label="ปิด">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="drawer-body">
+    <!-- Profile -->
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div class="sensory-avatar is-lg">สช</div>
+      <div>
+        <div style="font-size:var(--text-lg); font-weight:var(--fw-semibold); color:var(--text-heading);">
+          สมชาย ใจดี
+        </div>
+        <div style="font-size:var(--text-sm); color:var(--text-muted); margin-top:2px;">
+          HR Manager · ทรัพยากรบุคคล
+        </div>
+        <span class="sensory-badge tone-success" style="margin-top:6px;">
+          <span class="dot"></span>มาทำงาน
+        </span>
+      </div>
+    </div>
+
+    <!-- Key-value details -->
+    <div>
+      <div style="display:flex; justify-content:space-between; padding:9px 0;
+                  border-bottom:1px dashed var(--border-subtle); font-size:var(--text-sm);">
+        <span style="color:var(--text-muted);">รหัสพนักงาน</span>
+        <span class="mono" style="color:var(--text-heading); font-weight:var(--fw-semibold);">EMP-04821</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; padding:9px 0;
+                  border-bottom:1px dashed var(--border-subtle); font-size:var(--text-sm);">
+        <span style="color:var(--text-muted);">วันเริ่มงาน</span>
+        <span style="color:var(--text-heading); font-weight:var(--fw-semibold);">1 มิ.ย. 2563</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; padding:9px 0;
+                  border-bottom:1px dashed var(--border-subtle); font-size:var(--text-sm);">
+        <span style="color:var(--text-muted);">วันลาคงเหลือ</span>
+        <span style="color:var(--text-heading); font-weight:var(--fw-semibold);">8 วัน</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; padding:9px 0;
+                  font-size:var(--text-sm);">
+        <span style="color:var(--text-muted);">ผู้อนุมัติ</span>
+        <span style="color:var(--text-heading); font-weight:var(--fw-semibold);">นางสาวนภา ใจงาม</span>
+      </div>
+    </div>
+
+    <!-- Alert inside drawer -->
+    <div class="sensory-alert tone-info" role="status">
+      <span class="alert-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </span>
+      <div class="alert-body">มีคำขอลารออนุมัติ 1 รายการ</div>
+    </div>
+  </div>
+
+  <div class="drawer-foot">
+    <button class="sensory-btn is-secondary is-md" type="button" id="cancel-drawer-btn">ปิด</button>
+    <button class="sensory-btn is-primary is-md" type="button">อนุมัติคำขอ</button>
+  </div>
+</div>
+
+<!-- Vanilla JS: open/close + focus trap + Escape -->
+<script>
+(function () {
+  const openBtn   = document.getElementById('open-drawer-btn');
+  const closeBtn  = document.getElementById('close-drawer-btn');
+  const cancelBtn = document.getElementById('cancel-drawer-btn');
+  const scrim     = document.getElementById('drawer-scrim');
+  const drawer    = document.getElementById('employee-drawer');
+  if (!drawer) return;
+
+  const focusable = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    scrim.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    scrim.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    const first = drawer.querySelectorAll(focusable)[0];
+    if (first) first.focus();
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    scrim.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    scrim.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (openBtn) openBtn.focus();
+  }
+
+  openBtn?.addEventListener('click', openDrawer);
+  closeBtn?.addEventListener('click', closeDrawer);
+  cancelBtn?.addEventListener('click', closeDrawer);
+  scrim?.addEventListener('click', closeDrawer);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+  });
+
+  // Focus trap
+  drawer.addEventListener('keydown', e => {
+    if (e.key !== 'Tab') return;
+    const els = Array.from(drawer.querySelectorAll(focusable));
+    const first = els[0], last = els[els.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  });
+}());
+</script>
+
+<!-- ✓ DO: role="dialog" + aria-modal="true" + aria-labelledby ทุกครั้ง -->
+<!-- ✓ DO: focus trap + Escape key + return focus เมื่อปิด -->
+<!-- ✓ DO: document.body.style.overflow = 'hidden' เมื่อ drawer เปิด -->
+<!-- ✗ DO NOT: ใช้ visibility:hidden แทน .open class — animation จะไม่ทำงาน -->
+<!-- ✗ DO NOT: เปิด drawer หลายตัวพร้อมกัน -->

@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>จัดการพนักงาน — HAH Sensory HR</title>
+
+  <!-- HAH Sensory Design System — the ONLY two files this page links -->
+  <link rel="stylesheet" href="../../styles.css" />
+  <script src="../../sensory-ui.js" defer></script>
+
+  <!-- Page-shell layout only — every value below is a design token, zero hardcoded colors/spacing -->
+  <style>
+    body { background: var(--surface-app); }
+    .page { max-width: 1180px; margin: 0 auto; padding: var(--space-8) var(--space-6) var(--space-16); }
+    .page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-6); }
+    .page-header h1 { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: var(--fw-semibold); color: var(--text-heading); letter-spacing: -0.02em; }
+    .page-header p { font-size: var(--text-sm); color: var(--text-muted); margin-top: var(--space-1); }
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-bottom: var(--space-6); }
+    .toolbar { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); flex-wrap: wrap; }
+    .toolbar .search-wrap { width: 280px; }
+    .toolbar .dept-select { width: 200px; }
+    .toolbar .spacer { flex: 1; }
+    .table-toolbar-count { font-size: var(--text-xs); color: var(--text-muted); }
+    .cell-person { display: flex; align-items: center; gap: var(--space-3); }
+    .cell-person .nm { font-size: var(--text-sm); font-weight: var(--fw-medium); color: var(--text-heading); }
+    .cell-person .em { font-size: var(--text-xs); color: var(--text-muted); margin-top: 1px; }
+    .table-foot { display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) var(--space-4); border-top: 1px solid var(--border-subtle); }
+    .table-foot .count { font-size: var(--text-sm); color: var(--text-muted); }
+    .table-foot .pager { display: flex; align-items: center; gap: var(--space-2); }
+    .drawer-section-title { font-size: var(--text-xs); font-weight: var(--fw-semibold); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: var(--space-3); }
+    .drawer-kv { display: flex; justify-content: space-between; padding: var(--space-2) 0; border-bottom: 1px solid var(--border-subtle); font-size: var(--text-sm); }
+    .drawer-kv:last-child { border-bottom: none; }
+    .drawer-kv .k { color: var(--text-muted); }
+    .drawer-kv .v { color: var(--text-heading); font-weight: var(--fw-medium); }
+    .leave-row { display: grid; grid-template-columns: 90px 1fr 56px; align-items: center; gap: var(--space-3); padding: var(--space-2) 0; }
+    .leave-row .lbl { font-size: var(--text-sm); color: var(--text-body); }
+    .leave-row .val { font-size: var(--text-xs); color: var(--text-muted); text-align: right; font-variant-numeric: tabular-nums; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+    @media (max-width: 720px) {
+      .stat-grid { grid-template-columns: 1fr; }
+      .toolbar .search-wrap, .toolbar .dept-select { width: 100%; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ── Page header ─────────────────────────────────────────── -->
+  <div class="page-header">
+    <div>
+      <h1>จัดการพนักงาน</h1>
+      <p>รายชื่อพนักงานทั้งหมดในบริษัท — ค้นหา แก้ไข และจัดการสิทธิ์การเข้าถึง</p>
+    </div>
+    <button class="sensory-btn is-primary" type="button" data-modal-open="add-emp-modal">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      เพิ่มพนักงาน
+    </button>
+  </div>
+
+  <!-- ── Stats ───────────────────────────────────────────────── -->
+  <div class="stat-grid" role="list" aria-label="ตัวเลขสรุปพนักงาน">
+    <div class="sensory-card" role="listitem">
+      <div class="sensory-stat">
+        <div class="stat-label">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          พนักงานทั้งหมด
+        </div>
+        <div class="stat-value">42</div>
+        <div class="stat-delta up">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+          เพิ่มขึ้น 2 คนเดือนนี้
+        </div>
+      </div>
+    </div>
+    <div class="sensory-card" role="listitem">
+      <div class="sensory-stat">
+        <div class="stat-label">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          กำลังทำงานวันนี้
+        </div>
+        <div class="stat-value">36</div>
+        <div class="stat-delta" style="color:var(--text-muted);">คงที่จากเมื่อวาน</div>
+      </div>
+    </div>
+    <div class="sensory-card" role="listitem">
+      <div class="sensory-stat">
+        <div class="stat-label">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          ลาวันนี้
+        </div>
+        <div class="stat-value" style="color:var(--status-warning-text);">6</div>
+        <div class="stat-delta down">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          เพิ่มขึ้นจาก 4 คน
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Toolbar ─────────────────────────────────────────────── -->
+  <div class="toolbar">
+    <div class="sensory-input-wrap search-wrap">
+      <span class="lead-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
+      <input class="sensory-input" id="emp-search" type="search" placeholder="ค้นหาชื่อ, รหัส, อีเมล..." aria-label="ค้นหาพนักงาน" />
+    </div>
+
+    <select class="sensory-select dept-select" id="dept-filter" aria-label="กรองตามแผนก">
+      <option value="">ทุกแผนก</option>
+      <option value="it">เทคโนโลยีสารสนเทศ</option>
+      <option value="hr">ทรัพยากรบุคคล</option>
+      <option value="finance">การเงิน</option>
+      <option value="marketing">การตลาด</option>
+      <option value="ops">ปฏิบัติการ</option>
+      <option value="sales">ขาย</option>
+    </select>
+
+    <div class="spacer"></div>
+
+    <div class="sensory-tabs is-pill" role="tablist" aria-label="กรองตามสถานะ" id="status-tabs">
+      <button class="sensory-tab is-active" role="tab" aria-selected="true" id="etab-all" aria-controls="emp-table-wrap" type="button">
+        ทั้งหมด <span class="tab-count">8</span>
+      </button>
+      <button class="sensory-tab" role="tab" aria-selected="false" id="etab-active" aria-controls="emp-table-wrap" type="button">
+        มาทำงาน <span class="tab-count">5</span>
+      </button>
+      <button class="sensory-tab" role="tab" aria-selected="false" id="etab-leave" aria-controls="emp-table-wrap" type="button">
+        ลาวันนี้ <span class="tab-count">2</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Employee table ──────────────────────────────────────── -->
+  <div class="sensory-card" id="emp-table-wrap">
+    <div style="overflow-x:auto">
+      <table class="sensory-table" aria-label="รายชื่อพนักงานทั้งหมด" id="emp-table">
+        <thead>
+          <tr>
+            <th scope="col" style="width:40px">
+              <label class="sensory-check" style="margin:0">
+                <input type="checkbox" id="emp-select-all" aria-label="เลือกพนักงานทั้งหมด">
+                <span class="box"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+              </label>
+            </th>
+            <th scope="col">พนักงาน</th>
+            <th scope="col">แผนก</th>
+            <th scope="col">ตำแหน่ง</th>
+            <th scope="col">สถานะ</th>
+            <th scope="col">เริ่มงาน</th>
+            <th scope="col" style="width:40px"></th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr data-name="สมชาย ใจดี" data-dept="เทคโนโลยีสารสนเทศ" data-position="Senior Developer" data-emp-id="EMP-04821" data-status="มาทำงาน" data-status-tone="success" data-email="somchai.j@hah.co.th" data-phone="081-234-5678" data-joined="1 มิ.ย. 2563" data-leave-annual="8" data-leave-sick="30">
+            <td><label class="sensory-check" style="margin:0"><input type="checkbox" aria-label="เลือก สมชาย ใจดี" class="emp-row-check"><span class="box"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></label></td>
+            <td>
+              <div class="cell-person">
+                <div class="sensory-avatar is-sm sensory-avatar-status">สช</div>
+                <div><div class="nm">สมชาย ใจดี</div><div class="em">somchai.j@hah.co.th</div></div>
+              </div>
+            </td>
+            <td>เทคโนโลยีสารสนเทศ</td>
+            <td>Senior Developer</td>
+            <td><span class="sensory-badge tone-success"><span class="dot"></span>มาทำงาน</span></td>
+            <td>1 มิ.ย. 2563</td>
+            <td>
+              <div class="sensory-dropdown-wrap" style="display:inline-block">
+                <button class="sensory-btn is-ghost is-sm" data-sensory-dropdown="row-menu-1" aria-label="เพิ่มเติม" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                </button>
+                <div class="sensory-dropdown is-right" id="row-menu-1" aria-hidden="true">
+                  <button class="sensory-dropdown-item emp-view-btn" type="button" data-drawer-open="emp-drawer">ดูรายละเอียด</button>
+                  <button class="sensory-dropdown-item" type="button">แก้ไขข้อมูล</button>
+                  <div class="sensory-dropdown-divider" role="separator"></div>
+                  <button class="sensory-dropdown-item is-danger" type="button">ปิดใช้งานบัญชี</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr data-name="นภา สวยงาม" data-dept="การเงิน" data-position="Senior Accountant" data-emp-id="EMP-03102" data-status="ลาพักร้อน" data-status-tone="warning" data-email="napa.s@hah.co.th" data-phone="082-345-6789" data-joined="15 ก.พ. 2564" data-leave-annual="2" data-leave-sick="30">
+            <td><label class="sensory-check" style="margin:0"><input type="checkbox" aria-label="เลือก นภา สวยงาม" class="emp-row-check"><span class="box"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></label></td>
+            <td>
+              <div class="cell-person">
+                <div class="sensory-avatar is-sm">นส</div>
+                <div><div class="nm">นภา สวยงาม</div><div class="em">napa.s@hah.co.th</div></div>
+              </div>
+            </td>
+            <td>การเงิน</td>
+            <td>Senior Accountant</td>
+            <td><span class="sensory-badge tone-warning"><span class="dot"></span>ลาพักร้อน</span></td>
+            <td>15 ก.พ. 2564</td>
+            <td>
+              <div class="sensory-dropdown-wrap" style="display:inline-block">
+                <button class="sensory-btn is-ghost is-sm" data-sensory-dropdown="row-menu-2" aria-label="เพิ่มเติม" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                </button>
+                <div class="sensory-dropdown is-right" id="row-menu-2" aria-hidden="true">
+                  <button class="sensory-dropdown-item emp-view-btn" type="button" data-drawer-open="emp-drawer">ดูรายละเอียด</button>
+                  <button class="sensory-dropdown-item" type="button">แก้ไขข้อมูล</button>
+                  <div class="sensory-dropdown-divider" role="separator"></div>
+                  <button class="sensory-dropdown-item is-danger" type="button">ปิดใช้งานบัญชี</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr data-name="วีระ มั่นคง" data-dept="เทคโนโลยีสารสนเทศ" data-position="Full-Stack Developer" data-emp-id="EMP-05567" data-status="มาทำงาน" data-status-tone="success" data-email="weera.m@hah.co.th" data-phone="083-456-7890" data-joined="3 ส.ค. 2565" data-leave-annual="10" data-leave-sick="30">
+            <td><label class="sensory-check" style="margin:0"><input type="checkbox" aria-label="เลือก วีระ มั่นคง" class="emp-row-check"><span class="box"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></label></td>
+            <td>
+              <div class="cell-person">
+                <div class="sensory-avatar is-sm">วม</div>
+                <div><div class="nm">วีระ มั่นคง</div><div class="em">weera.m@hah.co.th</div></div>
+              </div>
+            </td>
+            <td>เทคโนโลยีสารสนเทศ</td>
+            <td>Full-Stack Developer</td>
+            <td><span class="sensory-badge tone-success"><span class="dot"></span>มาทำงาน</span></td>
+            <td>3 ส.ค. 2565</td>
+            <td>
+              <div class="sensory-dropdown-wrap" style="display:inline-block">
+                <button class="sensory-btn is-ghost is-sm" data-sensory-dropdown="row-menu-3" aria-label="เพิ่มเติม" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                </button>
+                <div class="sensory-dropdown is-right" id="row-menu-3" aria-hidden="true">
+                  <button class="sensory-dropdown-item emp-view-btn" type="button" data-drawer-open="emp-drawer">ดูรายละเอียด</button>
+                  <button class="sensory-dropdown-item" type="button">แก้ไขข้อมูล</button>
+                  <div class="sensory-dropdown-divider" role="separator"></div>
+                  <button class="sensory-dropdown-item is-danger" type="button">ปิดใช้งานบัญชี</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr data-name="กัญญา ชมเชย" data-dept="การตลาด" data-position="Marketing Lead" data-emp-id="EMP-02891" data-status="มาทำงาน" data-status-tone="success" data-email="kanya.c@hah.co.th" data-phone="084-567-8901" data-joined="20 ม.ค. 2562" data-leave-annual="6" data-leave-sick="28">
+            <td><label class="sensory-check" style="margin:0"><input type="checkbox" aria-label="เลือก กัญญา ชมเชย" class="emp-row-check"><span class="box"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></label></td>
+            <td>
+              <div class="cell-person">
+                <div class="sensory-avatar is-sm">กช</div>
+                <div><div class="nm">กัญญา ชมเชย</div><div class="em">kanya.c@hah.co.th</div></div>
+              </div>
+            </td>
+            <td>การตลาด</td>
+            <td>Marketing Lead</td>
+            <td><span class="sensory-badge tone-success"><span class="dot"></span>มาทำงาน</span></td>
+            <td>20 ม.ค. 2562</td>
+            <td>
+              <div class="sensory-dropdown-wrap" style="display:inline-block">
+                <button class="sensory-btn is-ghost is-sm" data-sensory-dropdown="row-menu-4" aria-label="เพิ่มเติม" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                </button>
+                <div class="sensory-dropdown is-right" id="row-menu-4" aria-hidden="true">
+                  <button class="sensory-dropdown-item emp-view-btn" type="button" data-drawer-open="emp-drawer">ดูรายละเอียด</button>
+                  <button class="sensory-dropdown-item" type="button">แก้ไขข้อมูล</button>
+                  <div class="sensory-dropdown-divider" role="separator"></div>
+                  <button class="sensory-dropdown-item is-danger" type="button">ปิดใช้งานบัญชี</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr data-name="พรทิพย์ รักงาน" data-dept="ปฏิบัติการ" data-position="Operations Manager" data-emp-id="EMP-01234" data-status="ลาพักร้อน" data-status-tone="warning" data-email="porntip.r@hah.co.th" data-phone="085-678-9012" data-joined="10 ต.ค. 2560" data-leave-annual="1" data-leave-sick="30">
+            <td><label class="sensory-check" style="margin:0"><input type="checkbox" aria-label="เลือก พรทิพย์ รักงาน" class="emp-row-check"><span class="box"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></label></td>
+            <td>
+              <div class="cell-person">
+                <div class="sensory-avatar is-sm">พร</div>
+                <div><div class="nm">พรทิพย์ รักงาน</div><div class="em">porntip.r@hah.co.th</div></div>
+              </div>
+            </td>
+            <td>ปฏิบัติการ</td>
+            <td>Operations Manager</td>
+            <td><span class="sensory-badge tone-warning"><span class="dot"></span>ลาพักร้อน</span></td>
+            <td>10 ต.ค. 2560</td>
+            <td>
+              <div class="sensory-dropdown-wrap" style="display:inline-block">
+                <button class="sensory-btn is-ghost is-sm" data-sensory-dropdown="row-menu-5" aria-label="เพิ่มเติม" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                </button>
+                <div class="sensory-dropdown is-right" id="row-menu-5" aria-hidden="true">
+                  <button class="sensory-dropdown-item emp-view-btn" type="button" data-drawer-open="emp-drawer">ดูรายละเอียด</button>
+                  <button class="sensory-dropdown-item" type="button">แก้ไขข้อมูล</button>
+                  <div class="sensory-dropdown-divider" role="separator"></div>
+                  <button class="sensory-dropdown-item is-danger" type="button">ปิดใช้งานบัญชี</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr data-name="ธนกร สุขใจ" data-dept="ขาย" data-position="Sales Executive" data-emp-id="EMP-06012" data-status="ขาดงาน" data-status-tone="danger" data-email="thanakorn.s@hah.co.th" data-phone="086-789-0123" data-joined="5 พ.ค. 2566" data-leave-annual="4" data-leave-sick="26">
+            <td><label class="sensory-check" style="margin:0"><input type="checkbox" aria-label="เลือก ธนกร สุขใจ" class="emp-row-check"><span class="box"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></label></td>
+            <td>
+              <div class="cell-person">
+                <div class="sensory-avatar is-sm">ธน</div>
+                <div><div class="nm">ธนกร สุขใจ</div><div class="em">thanakorn.s@hah.co.th</div></div>
+              </div>
+            </td>
+            <td>ขาย</td>
+            <td>Sales Executive</td>
+            <td><span class="sensory-badge tone-danger"><span class="dot"></span>ขาดงาน</span></td>
+            <td>5 พ.ค. 2566</td>
+            <td>
+              <div class="sensory-dropdown-wrap" style="display:inline-block">
+                <button class="sensory-btn is-ghost is-sm" data-sensory-dropdown="row-menu-6" aria-label="เพิ่มเติม" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                </button>
+                <div class="sensory-dropdown is-right" id="row-menu-6" aria-hidden="true">
+                  <button class="sensory-dropdown-item emp-view-btn" type="button" data-drawer-open="emp-drawer">ดูรายละเอียด</button>
+                  <button class="sensory-dropdown-item" type="button">แก้ไขข้อมูล</button>
+                  <div class="sensory-dropdown-divider" role="separator"></div>
+                  <button class="sensory-dropdown-item is-danger" type="button">ปิดใช้งานบัญชี</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr data-name="มนัส ดีใจ" data-dept="ทรัพยากรบุคคล" data-position="HR Officer" data-emp-id="EMP-07788" data-status="มาทำงาน" data-status-tone="success" data-email="manat.d@hah.co.th" data-phone="087-890-1234" data-joined="12 ธ.ค. 2564" data-leave-annual="9" data-leave-sick="30">
+            <td><label class="sensory-check" style="margin:0"><input type="checkbox" aria-label="เลือก มนัส ดีใจ" class="emp-row-check"><span class="box"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></label></td>
+            <td>
+              <div class="cell-person">
+                <div class="sensory-avatar is-sm">มน</div>
+                <div><div class="nm">มนัส ดีใจ</div><div class="em">manat.d@hah.co.th</div></div>
+              </div>
+            </td>
+            <td>ทรัพยากรบุคคล</td>
+            <td>HR Officer</td>
+            <td><span class="sensory-badge tone-success"><span class="dot"></span>มาทำงาน</span></td>
+            <td>12 ธ.ค. 2564</td>
+            <td>
+              <div class="sensory-dropdown-wrap" style="display:inline-block">
+                <button class="sensory-btn is-ghost is-sm" data-sensory-dropdown="row-menu-7" aria-label="เพิ่มเติม" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                </button>
+                <div class="sensory-dropdown is-right" id="row-menu-7" aria-hidden="true">
+                  <button class="sensory-dropdown-item emp-view-btn" type="button" data-drawer-open="emp-drawer">ดูรายละเอียด</button>
+                  <button class="sensory-dropdown-item" type="button">แก้ไขข้อมูล</button>
+                  <div class="sensory-dropdown-divider" role="separator"></div>
+                  <button class="sensory-dropdown-item is-danger" type="button">ปิดใช้งานบัญชี</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr data-name="อรุณี แจ่มใส" data-dept="การเงิน" data-position="Finance Analyst" data-emp-id="EMP-08899" data-status="มาทำงาน" data-status-tone="success" data-email="arunee.j@hah.co.th" data-phone="088-901-2345" data-joined="7 ก.ค. 2567" data-leave-annual="10" data-leave-sick="30">
+            <td><label class="sensory-check" style="margin:0"><input type="checkbox" aria-label="เลือก อรุณี แจ่มใส" class="emp-row-check"><span class="box"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></label></td>
+            <td>
+              <div class="cell-person">
+                <div class="sensory-avatar is-sm">อจ</div>
+                <div><div class="nm">อรุณี แจ่มใส</div><div class="em">arunee.j@hah.co.th</div></div>
+              </div>
+            </td>
+            <td>การเงิน</td>
+            <td>Finance Analyst</td>
+            <td><span class="sensory-badge tone-success"><span class="dot"></span>มาทำงาน</span></td>
+            <td>7 ก.ค. 2567</td>
+            <td>
+              <div class="sensory-dropdown-wrap" style="display:inline-block">
+                <button class="sensory-btn is-ghost is-sm" data-sensory-dropdown="row-menu-8" aria-label="เพิ่มเติม" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                </button>
+                <div class="sensory-dropdown is-right" id="row-menu-8" aria-hidden="true">
+                  <button class="sensory-dropdown-item emp-view-btn" type="button" data-drawer-open="emp-drawer">ดูรายละเอียด</button>
+                  <button class="sensory-dropdown-item" type="button">แก้ไขข้อมูล</button>
+                  <div class="sensory-dropdown-divider" role="separator"></div>
+                  <button class="sensory-dropdown-item is-danger" type="button">ปิดใช้งานบัญชี</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="table-foot">
+      <span class="count">แสดง 1–8 จาก 42 คน</span>
+      <div class="pager">
+        <button class="sensory-iconbtn is-sm" type="button" aria-label="หน้าก่อนหน้า" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="sensory-iconbtn is-sm" type="button" aria-label="หน้าถัดไป">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<!-- ══════════════════════════════════════════════════════════
+     Add Employee Modal
+═══════════════════════════════════════════════════════════ -->
+<div class="sensory-modal-scrim" id="add-emp-modal-scrim" data-modal-scrim="add-emp-modal" aria-hidden="true"></div>
+
+<div class="sensory-modal is-lg" id="add-emp-modal" role="dialog" aria-modal="true" aria-labelledby="add-emp-modal-title" aria-hidden="true">
+  <div class="sensory-modal-head">
+    <h2 id="add-emp-modal-title">เพิ่มพนักงานใหม่</h2>
+    <button class="sensory-btn is-ghost is-sm" data-modal-close="add-emp-modal" aria-label="ปิด" type="button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <form id="add-emp-form">
+    <div class="sensory-modal-body">
+      <div class="form-grid">
+        <div class="sensory-field">
+          <label class="sensory-label" for="f-name">ชื่อ-นามสกุล <span class="req">*</span></label>
+          <input class="sensory-input" id="f-name" type="text" placeholder="เช่น สมชาย ใจดี" required />
+        </div>
+        <div class="sensory-field">
+          <label class="sensory-label" for="f-email">อีเมลงาน <span class="req">*</span></label>
+          <input class="sensory-input" id="f-email" type="email" placeholder="ชื่อ@hah.co.th" required />
+        </div>
+        <div class="sensory-field">
+          <label class="sensory-label" for="f-dept">แผนก <span class="req">*</span></label>
+          <select class="sensory-select" id="f-dept" required>
+            <option value="" disabled selected>เลือกแผนก</option>
+            <option value="it">เทคโนโลยีสารสนเทศ</option>
+            <option value="hr">ทรัพยากรบุคคล</option>
+            <option value="finance">การเงิน</option>
+            <option value="marketing">การตลาด</option>
+            <option value="ops">ปฏิบัติการ</option>
+            <option value="sales">ขาย</option>
+          </select>
+        </div>
+        <div class="sensory-field">
+          <label class="sensory-label" for="f-position">ตำแหน่ง <span class="req">*</span></label>
+          <input class="sensory-input" id="f-position" type="text" placeholder="เช่น Developer" required />
+        </div>
+        <div class="sensory-field">
+          <label class="sensory-label" for="f-start">วันที่เริ่มงาน <span class="req">*</span></label>
+          <input class="sensory-input" id="f-start" type="date" required />
+        </div>
+        <div class="sensory-field">
+          <label class="sensory-label" for="f-manager">ผู้บังคับบัญชา</label>
+          <select class="sensory-select" id="f-manager">
+            <option value="" disabled selected>เลือกผู้บังคับบัญชา</option>
+            <option value="mgr1">นางสาวนภา ใจงาม</option>
+            <option value="mgr2">นายสมศักดิ์ วงศ์ดี</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sensory-field" style="margin-top:var(--space-4)">
+        <label class="sensory-label" for="f-note">หมายเหตุ</label>
+        <textarea class="sensory-textarea" id="f-note" rows="3" placeholder="ข้อมูลเพิ่มเติม (ถ้ามี)"></textarea>
+      </div>
+
+      <label class="sensory-switch" style="margin-top:var(--space-5)">
+        <input type="checkbox" role="switch" aria-checked="false" checked>
+        <span class="track"><span class="thumb"></span></span>
+        <span class="switch-label">ส่งอีเมลแจ้งบัญชีผู้ใช้งานให้พนักงานทันที</span>
+      </label>
+    </div>
+
+    <div class="sensory-modal-foot">
+      <button class="sensory-btn is-secondary" type="button" data-modal-close="add-emp-modal">ยกเลิก</button>
+      <button class="sensory-btn is-primary" type="submit">บันทึกพนักงาน</button>
+    </div>
+  </form>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     Employee Detail Drawer
+═══════════════════════════════════════════════════════════ -->
+<div class="sensory-drawer-scrim" id="emp-drawer-scrim" data-drawer-scrim="emp-drawer" aria-hidden="true"></div>
+
+<div class="sensory-drawer" id="emp-drawer" role="dialog" aria-modal="true" aria-labelledby="emp-drawer-title" aria-hidden="true">
+  <div class="sensory-drawer-head">
+    <h2 id="emp-drawer-title">รายละเอียดพนักงาน</h2>
+    <button class="sensory-iconbtn is-md" type="button" data-drawer-close="emp-drawer" aria-label="ปิด">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="sensory-drawer-body">
+    <div style="display:flex; align-items:center; gap:var(--space-4)">
+      <div class="sensory-avatar is-lg" id="d-avatar">--</div>
+      <div>
+        <div style="font-size:var(--text-lg); font-weight:var(--fw-semibold); color:var(--text-heading);" id="d-name">—</div>
+        <div style="font-size:var(--text-sm); color:var(--text-muted); margin-top:2px;" id="d-role">—</div>
+        <span class="sensory-badge tone-success" id="d-status-badge" style="margin-top:var(--space-2)">
+          <span class="dot"></span><span id="d-status-text">—</span>
+        </span>
+      </div>
+    </div>
+
+    <div>
+      <div class="drawer-section-title">ข้อมูลติดต่อ</div>
+      <div class="drawer-kv"><span class="k">รหัสพนักงาน</span><span class="v" id="d-emp-id">—</span></div>
+      <div class="drawer-kv"><span class="k">อีเมล</span><span class="v" id="d-email">—</span></div>
+      <div class="drawer-kv"><span class="k">เบอร์โทร</span><span class="v" id="d-phone">—</span></div>
+      <div class="drawer-kv"><span class="k">วันเริ่มงาน</span><span class="v" id="d-joined">—</span></div>
+    </div>
+
+    <div>
+      <div class="drawer-section-title">วันลาคงเหลือ</div>
+      <div class="leave-row">
+        <span class="lbl">ลาพักร้อน</span>
+        <div class="sensory-progress"><div class="fill" id="d-leave-annual-fill" style="width:0%"></div></div>
+        <span class="val" id="d-leave-annual-val">— / 10</span>
+      </div>
+      <div class="leave-row">
+        <span class="lbl">ลาป่วย</span>
+        <div class="sensory-progress tone-success"><div class="fill" id="d-leave-sick-fill" style="width:0%"></div></div>
+        <span class="val" id="d-leave-sick-val">— / 30</span>
+      </div>
+    </div>
+
+    <div class="sensory-alert tone-info" role="status" id="d-pending-alert">
+      <span class="alert-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </span>
+      <div class="alert-body">พนักงานคนนี้ยังไม่มีคำขอลารออนุมัติ</div>
+    </div>
+  </div>
+
+  <div class="sensory-drawer-foot">
+    <button class="sensory-btn is-secondary is-md" type="button" data-drawer-close="emp-drawer">ปิด</button>
+    <button class="sensory-btn is-primary is-md" type="button" id="d-edit-btn">แก้ไขข้อมูล</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     Page glue script — NOT part of the design system.
+     Reads row data-* attrs into the drawer, wires search/filter/
+     select-all. All visual behavior (drawer/modal/dropdown/tabs)
+     comes from sensory-ui.js alone.
+═══════════════════════════════════════════════════════════ -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    // Populate drawer from the row whose dropdown triggered "ดูรายละเอียด"
+    document.querySelectorAll('.emp-view-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const row = btn.closest('tr');
+        if (!row) return;
+        const d = row.dataset;
+
+        document.getElementById('d-avatar').textContent = d.name.split(' ')[0].slice(0, 2);
+        document.getElementById('d-name').textContent = d.name;
+        document.getElementById('d-role').textContent = d.position + ' · ' + d.dept;
+        document.getElementById('d-emp-id').textContent = d.empId;
+        document.getElementById('d-email').textContent = d.email;
+        document.getElementById('d-phone').textContent = d.phone;
+        document.getElementById('d-joined').textContent = d.joined;
+
+        const badge = document.getElementById('d-status-badge');
+        badge.className = 'sensory-badge tone-' + d.statusTone;
+        document.getElementById('d-status-text').textContent = d.status;
+
+        const annualPct = Math.round((Number(d.leaveAnnual) / 10) * 100);
+        const sickPct   = Math.round((Number(d.leaveSick) / 30) * 100);
+        document.getElementById('d-leave-annual-fill').style.width = annualPct + '%';
+        document.getElementById('d-leave-annual-val').textContent = d.leaveAnnual + ' / 10';
+        document.getElementById('d-leave-sick-fill').style.width = sickPct + '%';
+        document.getElementById('d-leave-sick-val').textContent = d.leaveSick + ' / 30';
+      });
+    });
+
+    // Select-all checkbox toggles every row checkbox
+    const selectAll = document.getElementById('emp-select-all');
+    const rowChecks = document.querySelectorAll('.emp-row-check');
+    selectAll.addEventListener('change', function () {
+      rowChecks.forEach(function (cb) { cb.checked = selectAll.checked; });
+    });
+
+    // Add employee form — no backend here, just confirm the round-trip works
+    document.getElementById('add-emp-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      SensoryUI.modal.close('add-emp-modal');
+      SensoryUI.toast('เพิ่มพนักงานใหม่เรียบร้อยแล้ว', { tone: 'success' });
+      e.target.reset();
+    });
+
+    // Status filter tabs — simple client-side row filter by data-status-tone
+    const filterMap = { 'etab-all': null, 'etab-active': 'success', 'etab-leave': 'warning' };
+    document.querySelectorAll('#status-tabs .sensory-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        const tone = filterMap[tab.id];
+        document.querySelectorAll('#emp-table tbody tr').forEach(function (row) {
+          row.style.display = (!tone || row.dataset.statusTone === tone) ? '' : 'none';
+        });
+      });
+    });
+
+    // Department filter select
+    document.getElementById('dept-filter').addEventListener('change', function (e) {
+      const map = { it: 'เทคโนโลยีสารสนเทศ', hr: 'ทรัพยากรบุคคล', finance: 'การเงิน', marketing: 'การตลาด', ops: 'ปฏิบัติการ', sales: 'ขาย' };
+      const dept = map[e.target.value] || null;
+      document.querySelectorAll('#emp-table tbody tr').forEach(function (row) {
+        row.style.display = (!dept || row.dataset.dept === dept) ? '' : 'none';
+      });
+    });
+
+    // Live search across name / email / emp-id
+    document.getElementById('emp-search').addEventListener('input', function (e) {
+      const q = e.target.value.trim().toLowerCase();
+      document.querySelectorAll('#emp-table tbody tr').forEach(function (row) {
+        const haystack = (row.dataset.name + ' ' + row.dataset.email + ' ' + row.dataset.empId).toLowerCase();
+        row.style.display = haystack.includes(q) ? '' : 'none';
+      });
+    });
+
+  });
+</script>
+
+</body>
+</html>

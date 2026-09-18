@@ -1,0 +1,78 @@
+<!-- ================================================================
+     SNIPPET: sensory-field / sensory-input / sensory-textarea
+     Field wrapper:  .sensory-field (flex column, gap-2)
+     Label:          .sensory-label  |  required mark: <span class="req">*</span>
+     Input:          .sensory-input  (height 38px)
+     Textarea:       .sensory-textarea (min-height 84px, resize: vertical)
+     Hint:           .sensory-hint  |  error hint: .sensory-hint.is-error
+     Error state:    add .has-error to the input/textarea
+     With icon:      wrap in .sensory-input-wrap, add .lead-icon inside
+     States:         :disabled → sunken bg, cursor not-allowed
+     A11y:           label ต้อง for= ตรงกับ input id เสมอ
+                     error hint ควรมี role="alert" หรือ aria-live="polite"
+     ================================================================ -->
+
+<!-- Standard field -->
+<div class="sensory-field">
+  <label class="sensory-label" for="emp-name">ชื่อ-นามสกุล <span class="req">*</span></label>
+  <input class="sensory-input" id="emp-name" type="text" placeholder="เช่น สมชาย ใจดี" />
+</div>
+
+<!-- Field with hint -->
+<div class="sensory-field">
+  <label class="sensory-label" for="emp-id">รหัสพนักงาน</label>
+  <input class="sensory-input" id="emp-id" type="text" placeholder="EMP-XXXXX" />
+  <span class="sensory-hint">รูปแบบ: EMP- ตามด้วยตัวเลข 5 หลัก</span>
+</div>
+
+<!-- Field with error -->
+<div class="sensory-field">
+  <label class="sensory-label" for="emp-email">อีเมลงาน <span class="req">*</span></label>
+  <input class="sensory-input has-error" id="emp-email" type="email"
+         value="somporn@" aria-describedby="email-err" />
+  <span class="sensory-hint is-error" id="email-err" role="alert">
+    รูปแบบอีเมลไม่ถูกต้อง
+  </span>
+</div>
+
+<!-- Input with leading icon (search) -->
+<div class="sensory-field">
+  <label class="sensory-label" for="search">ค้นหาพนักงาน</label>
+  <div class="sensory-input-wrap">
+    <span class="lead-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+    </span>
+    <input class="sensory-input" id="search" type="search" placeholder="ชื่อ, รหัส, แผนก..." />
+  </div>
+</div>
+
+<!-- Disabled input -->
+<div class="sensory-field">
+  <label class="sensory-label" for="emp-code">รหัสสาขา</label>
+  <input class="sensory-input" id="emp-code" type="text" value="BKK-001" disabled />
+  <span class="sensory-hint">กำหนดโดยระบบ ไม่สามารถแก้ไขได้</span>
+</div>
+
+<!-- Textarea -->
+<div class="sensory-field">
+  <label class="sensory-label" for="leave-reason">เหตุผลการลา <span class="req">*</span></label>
+  <textarea class="sensory-textarea" id="leave-reason"
+            placeholder="ระบุเหตุผลการลา..." rows="3"></textarea>
+  <span class="sensory-hint">อธิบายเหตุผลให้ชัดเจน เพื่อให้ผู้อนุมัติพิจารณาได้รวดเร็ว</span>
+</div>
+
+<!-- Textarea with error -->
+<div class="sensory-field">
+  <label class="sensory-label" for="leave-reason-err">เหตุผลการลา <span class="req">*</span></label>
+  <textarea class="sensory-textarea has-error" id="leave-reason-err"
+            aria-describedby="reason-err"></textarea>
+  <span class="sensory-hint is-error" id="reason-err" role="alert">กรุณาระบุเหตุผลการลา</span>
+</div>
+
+<!-- ✓ DO: เรียง label → input → hint เสมอ -->
+<!-- ✓ DO: ใช้ .sensory-field ห่อทุกครั้ง เพื่อ gap spacing ที่ถูกต้อง -->
+<!-- ✗ DO NOT: สร้าง input โดยไม่มี label (ใช้ aria-label ถ้าจำเป็นต้องซ่อน) -->
+<!-- ✗ DO NOT: ใช้ style="border-color:red" เพื่อ error — ใช้ .has-error แทน -->

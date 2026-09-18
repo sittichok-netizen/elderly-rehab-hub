@@ -1,0 +1,146 @@
+<!-- ================================================================
+     SNIPPET: .table (Data Table)
+     Source:  ui_kits/hr-demo/kit.css — ไม่ได้อยู่ใน styles.css core
+              ต้อง copy CSS ด้านล่าง หรือ link kit.css เพิ่มเติม
+     Classes: .table (ตาราง), .cell-person (avatar+name+id row)
+     Tokens:  ใช้ design token ทั้งหมด — ไม่มี hardcode
+     A11y:    ใช้ <thead>/<tbody>/<th scope="col"> เสมอ
+              <th scope="row"> สำหรับ row header (เช่น ชื่อพนักงาน)
+              ถ้าตารางมีชื่อ ให้ใส่ <caption> หรือ aria-label บน <table>
+     ================================================================ -->
+
+<!--
+  COPY CSS นี้ถ้าไม่ได้ link kit.css:
+
+  .table { width:100%; border-collapse:collapse; }
+  .table th { text-align:left; font-size:var(--text-xs); font-weight:600;
+    color:var(--text-muted); text-transform:uppercase; letter-spacing:.03em;
+    padding:10px 16px; border-bottom:1px solid var(--border-subtle); }
+  .table td { padding:13px 16px; font-size:var(--text-sm);
+    border-bottom:1px solid var(--border-subtle); color:var(--text-body); vertical-align:middle; }
+  .table tr:last-child td { border-bottom:none; }
+  .table tbody tr { transition:background var(--dur-base) var(--ease-out); }
+  .table tbody tr:hover { background:var(--surface-hover); }
+  .cell-person { display:flex; align-items:center; gap:10px; }
+  .cell-person .nm { font-weight:600; color:var(--text-heading); font-size:var(--text-base); }
+  .cell-person .id { font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-subtle); }
+-->
+
+<!-- Employee table -->
+<div class="sensory-card">
+  <div class="sensory-card-header">
+    <span class="sensory-card-title">รายชื่อพนักงาน</span>
+    <div style="display:flex; gap:8px;">
+      <div class="sensory-input-wrap" style="width:220px;">
+        <span class="lead-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </span>
+        <input class="sensory-input is-sm" type="search" placeholder="ค้นหาพนักงาน..."
+               style="height:32px; font-size:var(--text-sm);" />
+      </div>
+      <button class="sensory-btn is-brand-soft is-sm" type="button">+ เพิ่มพนักงาน</button>
+    </div>
+  </div>
+
+  <table class="table" aria-label="รายชื่อพนักงาน">
+    <thead>
+      <tr>
+        <th scope="col">พนักงาน</th>
+        <th scope="col">แผนก</th>
+        <th scope="col">ตำแหน่ง</th>
+        <th scope="col">วันลาคงเหลือ</th>
+        <th scope="col">สถานะ</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="cell-person">
+            <div class="sensory-avatar is-sm">สช</div>
+            <div>
+              <div class="nm">สมชาย ใจดี</div>
+              <div class="id">EMP-04821</div>
+            </div>
+          </div>
+        </td>
+        <td>ทรัพยากรบุคคล</td>
+        <td>HR Manager</td>
+        <td>
+          <span class="mono" style="color:var(--text-heading); font-weight:var(--fw-medium);">8</span>
+          <span style="color:var(--text-muted); font-size:var(--text-xs);"> / 10 วัน</span>
+        </td>
+        <td><span class="sensory-badge tone-success"><span class="dot"></span>มาทำงาน</span></td>
+        <td>
+          <button class="sensory-iconbtn is-sm" type="button" aria-label="ดูรายละเอียด">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="cell-person">
+            <div class="sensory-avatar is-sm">นส</div>
+            <div>
+              <div class="nm">นภา สวยงาม</div>
+              <div class="id">EMP-03102</div>
+            </div>
+          </div>
+        </td>
+        <td>การเงิน</td>
+        <td>Senior Accountant</td>
+        <td>
+          <span class="mono" style="color:var(--text-heading); font-weight:var(--fw-medium);">2</span>
+          <span style="color:var(--text-muted); font-size:var(--text-xs);"> / 10 วัน</span>
+        </td>
+        <td><span class="sensory-badge tone-warning"><span class="dot"></span>ลาพักร้อน</span></td>
+        <td>
+          <button class="sensory-iconbtn is-sm" type="button" aria-label="ดูรายละเอียด">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="cell-person">
+            <div class="sensory-avatar is-sm">วม</div>
+            <div>
+              <div class="nm">วีระ มั่นคง</div>
+              <div class="id">EMP-05567</div>
+            </div>
+          </div>
+        </td>
+        <td>ไอที</td>
+        <td>Full-Stack Developer</td>
+        <td>
+          <span class="mono" style="color:var(--status-danger-text); font-weight:var(--fw-medium);">0</span>
+          <span style="color:var(--text-muted); font-size:var(--text-xs);"> / 10 วัน</span>
+        </td>
+        <td><span class="sensory-badge tone-danger"><span class="dot"></span>ขาดงาน</span></td>
+        <td>
+          <button class="sensory-iconbtn is-sm" type="button" aria-label="ดูรายละเอียด">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ✓ DO: ใช้ <thead>/<tbody> + <th scope="col"> ทุกครั้ง -->
+<!-- ✓ DO: ใช้ .cell-person สำหรับ name+id cell เพื่อ consistency -->
+<!-- ✓ DO: ใช้ .mono class บน numeric data (วันลา, รหัส, เลข) -->
+<!-- ✗ DO NOT: ใส่ padding ตรงๆ บน <td> ด้วย inline style — ใช้ .table class แทน -->
+<!-- ✗ DO NOT: ทำ row ทั้งแถวเป็น <a> — ใช้ iconbtn action ที่ท้ายแถวแทน -->

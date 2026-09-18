@@ -1,0 +1,75 @@
+/* ════════════════════════════════════════════════════════════════════════
+   BASE — HAH Sensory
+   Minimal reset + base element styling + a small set of brand utility classes
+   (helpers the components and kits rely on). Tokens come from the files
+   imported before this in styles.css.
+   ════════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-leading);
+  color: var(--text-body);
+  background: var(--surface-app);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "cv01";
+}
+
+h1, h2, h3, h4, h5, h6 { margin: 0; color: var(--text-heading); font-weight: var(--fw-semibold); font-family: var(--font-display); }
+p { margin: 0; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+
+::selection { background: var(--brand-100); color: var(--brand-700); }
+
+:where(button, [role="button"], a):not(:disabled) { cursor: pointer; }
+
+/* Tabular figures for any data context */
+.tabular { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+
+/* Mono helper */
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* Eyebrow / overline label */
+.eyebrow {
+  font-size: var(--type-eyebrow-size);
+  font-weight: var(--type-eyebrow-weight);
+  letter-spacing: var(--type-eyebrow-tracking);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Subtle dotted grid — used behind empty states / hero panels */
+.grid-dots {
+  background-image: radial-gradient(var(--border-default) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Card surface utility */
+.surface-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Press feedback (matches beUI) */
+.press { transition: transform var(--dur-fast) var(--ease-out); }
+.press:active { transform: scale(0.97); }
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { scrollbar-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

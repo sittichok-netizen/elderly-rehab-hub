@@ -1,0 +1,5 @@
+.wrangler/
+node_modules/
+design-system/assets/
+design-system/_ds_bundle.js
+*.log

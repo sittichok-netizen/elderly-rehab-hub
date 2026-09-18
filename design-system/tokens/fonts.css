@@ -1,0 +1,14 @@
+/* ── Webfonts ──────────────────────────────────────────────────────────────
+   HAH Sensory ships a Thai-first type system built on Google's Google Sans family,
+   which carries both Thai and Latin in one consistent voice.
+
+   The family ships in two optical sets and we use BOTH:
+   • Google Sans Text — tuned for smaller sizes (< ~17px): body, labels, inputs,
+     tables, and most UI chrome. This is the default (--font-sans).
+   • Google Sans      — tuned for larger sizes (≥ ~17px): headings, titles,
+     display numbers. Exposed as --font-display.
+
+   Google Sans Code handles tabular data, IDs and code.
+   (Google Sans replaces the previous Anuphan/Inter pairing.) */
+
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Google+Sans+Text:wght@300;400;500;600;700&family=Google+Sans+Code:wght@400;500;600&display=swap');

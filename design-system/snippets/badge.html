@@ -1,0 +1,59 @@
+<!-- ================================================================
+     SNIPPET: sensory-badge
+     Base:    .sensory-badge
+     Tone:    tone-neutral | tone-brand | tone-success | tone-warning | tone-danger | tone-info
+     Solid:   .is-solid (filled bg, white text) — รองรับ: tone-brand, tone-success, tone-danger
+     Dot:     <span class="dot"> inside badge (optional leading dot indicator)
+     A11y:    badge เป็น decorative — ถ้า tone สื่อ meaning ที่สำคัญ ให้เพิ่ม
+              aria-label หรือ visually-hidden text อธิบาย state
+     ================================================================ -->
+
+<!-- Tone variants (soft bg + colored text) -->
+<span class="sensory-badge tone-neutral">ปกติ</span>
+<span class="sensory-badge tone-brand">HAH Sensory</span>
+<span class="sensory-badge tone-success">อนุมัติแล้ว</span>
+<span class="sensory-badge tone-warning">รออนุมัติ</span>
+<span class="sensory-badge tone-danger">ปฏิเสธ</span>
+<span class="sensory-badge tone-info">ข้อมูล</span>
+
+<!-- Solid variants (filled) -->
+<span class="sensory-badge tone-brand is-solid">Brand</span>
+<span class="sensory-badge tone-success is-solid">มาทำงาน</span>
+<span class="sensory-badge tone-danger is-solid">ขาดงาน</span>
+
+<!-- With dot indicator -->
+<span class="sensory-badge tone-success"><span class="dot"></span>มาทำงาน</span>
+<span class="sensory-badge tone-warning"><span class="dot"></span>รออนุมัติ</span>
+<span class="sensory-badge tone-danger"><span class="dot"></span>ปฏิเสธ</span>
+<span class="sensory-badge tone-neutral"><span class="dot"></span>ลาพักร้อน</span>
+
+<!-- HR status mapping (ใช้งานจริง) -->
+<!--
+  อนุมัติ / มาทำงาน     → tone-success
+  รออนุมัติ / ลา        → tone-warning
+  ปฏิเสธ / ขาดงาน       → tone-danger
+  ข้อมูล / ระบบ          → tone-info
+  ยกเลิก / ไม่ระบุ       → tone-neutral
+  แผนก / tag ทั่วไป     → tone-brand
+-->
+
+<!-- ในตาราง (inline กับ text) -->
+<div style="display:flex; flex-direction:column; gap:8px;">
+  <div style="display:flex; align-items:center; gap:10px; font-size:var(--text-sm);">
+    <span style="color:var(--text-heading); font-weight:var(--fw-medium);">สมชาย ใจดี</span>
+    <span class="sensory-badge tone-success"><span class="dot"></span>มาทำงาน</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:10px; font-size:var(--text-sm);">
+    <span style="color:var(--text-heading); font-weight:var(--fw-medium);">นภา สวยงาม</span>
+    <span class="sensory-badge tone-warning"><span class="dot"></span>ลาพักร้อน</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:10px; font-size:var(--text-sm);">
+    <span style="color:var(--text-heading); font-weight:var(--fw-medium);">วีระ มั่นคง</span>
+    <span class="sensory-badge tone-danger"><span class="dot"></span>ขาดงาน</span>
+  </div>
+</div>
+
+<!-- ✓ DO: ใช้ tone ตาม semantic — success/warning/danger ต้องสอดคล้องกับ meaning จริง -->
+<!-- ✓ DO: เพิ่ม .dot สำหรับ status ที่ต้องการ visual indicator ชัด -->
+<!-- ✗ DO NOT: ใช้ tone-danger สำหรับสิ่งที่ไม่ใช่ error/danger (เช่น tag แผนก → tone-brand) -->
+<!-- ✗ DO NOT: ใส่ข้อความยาวใน badge — badge เหมาะกับ label 1–3 คำ -->

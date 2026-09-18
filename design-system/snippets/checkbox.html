@@ -1,0 +1,99 @@
+<!-- ================================================================
+     SNIPPET: sensory-check (Checkbox)
+     Base:    .sensory-check  (label wrapper)
+     Control: <input type="checkbox"> (visually hidden, real input)
+     Box:     <span class="box"> + SVG checkmark inside
+     Disabled:.sensory-check.is-disabled + disabled attr on input
+     A11y:    .sensory-check คือ <label> — กด label = toggle checkbox
+              group ควรอยู่ใน <fieldset> + <legend>
+     ================================================================ -->
+
+<!-- Single checkbox -->
+<label class="sensory-check">
+  <input type="checkbox" />
+  <span class="box">
+    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  </span>
+  รับทราบเงื่อนไขการลา
+</label>
+
+<!-- Checked by default -->
+<label class="sensory-check">
+  <input type="checkbox" checked />
+  <span class="box">
+    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  </span>
+  แจ้งเตือนผ่านอีเมล
+</label>
+
+<!-- Disabled unchecked -->
+<label class="sensory-check is-disabled">
+  <input type="checkbox" disabled />
+  <span class="box">
+    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  </span>
+  ลาสะสม (ไม่เปิดใช้งาน)
+</label>
+
+<!-- Disabled checked -->
+<label class="sensory-check is-disabled">
+  <input type="checkbox" checked disabled />
+  <span class="box">
+    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  </span>
+  ยืนยันตัวตนแล้ว (ระบบ)
+</label>
+
+<!-- Checkbox group ในแบบฟอร์ม -->
+<fieldset style="border:none; padding:0; margin:0;">
+  <legend class="sensory-label" style="margin-bottom:8px;">วันที่ต้องการลา</legend>
+  <div style="display:flex; flex-direction:column; gap:8px;">
+    <label class="sensory-check">
+      <input type="checkbox" name="days" value="mon" />
+      <span class="box">
+        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </span>
+      วันจันทร์
+    </label>
+    <label class="sensory-check">
+      <input type="checkbox" name="days" value="tue" checked />
+      <span class="box">
+        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </span>
+      วันอังคาร
+    </label>
+    <label class="sensory-check">
+      <input type="checkbox" name="days" value="wed" />
+      <span class="box">
+        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </span>
+      วันพุธ
+    </label>
+  </div>
+</fieldset>
+
+<!-- ✓ DO: .sensory-check ต้องเป็น <label> เพื่อให้ label text กด toggle ได้ -->
+<!-- ✓ DO: ใส่ SVG checkmark ไว้ใน .box เสมอ (ซ่อนด้วย opacity:0 จนกว่า checked) -->
+<!-- ✓ DO: checkbox group ควรอยู่ใน <fieldset> + <legend> -->
+<!-- ✗ DO NOT: ซ่อน input แล้วสร้าง custom div checkbox ขึ้นมาใหม่ทั้งหมด -->

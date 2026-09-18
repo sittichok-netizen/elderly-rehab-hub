@@ -1,0 +1,73 @@
+/* ════════════════════════════════════════════════════════════════════════
+   SPACING · RADIUS · ELEVATION · MOTION — HAH Sensory
+   A 4px base grid. Compact radii and soft, low-spread shadows give the
+   product a calm, "office software" feel rather than a flashy marketing one.
+   Motion curves are inherited verbatim from the beUI foundation.
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Spacing scale (4px base) ────────────────────────────────────────── */
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4 */
+  --space-2: 0.5rem;    /* 8 */
+  --space-3: 0.75rem;   /* 12 */
+  --space-4: 1rem;      /* 16 */
+  --space-5: 1.25rem;   /* 20 */
+  --space-6: 1.5rem;    /* 24 */
+  --space-8: 2rem;      /* 32 */
+  --space-10: 2.5rem;   /* 40 */
+  --space-12: 3rem;     /* 48 */
+  --space-16: 4rem;     /* 64 */
+  --space-20: 5rem;     /* 80 */
+
+  /* Component padding aliases */
+  --pad-control-x: var(--space-3);
+  --pad-control-y: var(--space-2);
+  --pad-card: var(--space-5);
+  --gap-tight: var(--space-2);
+  --gap-default: var(--space-4);
+  --gap-section: var(--space-8);
+
+  /* ── Radii ───────────────────────────────────────────────────────────── */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;    /* default control radius */
+  --radius-lg: 12px;   /* cards */
+  --radius-xl: 16px;   /* large panels / modals */
+  --radius-2xl: 24px;
+  --radius-pill: 999px;
+
+  /* ── Elevation (soft, cool-tinted) ───────────────────────────────────── */
+  --shadow-xs: 0 1px 2px oklch(22% 0.02 250 / 0.05);
+  --shadow-sm: 0 1px 2px oklch(22% 0.02 250 / 0.06),
+               0 1px 3px oklch(22% 0.02 250 / 0.05);
+  --shadow-md: 0 2px 4px oklch(22% 0.02 250 / 0.05),
+               0 4px 12px oklch(22% 0.02 250 / 0.08);
+  --shadow-lg: 0 8px 16px oklch(22% 0.02 250 / 0.08),
+               0 16px 40px oklch(22% 0.02 250 / 0.10);
+  --shadow-xl: 0 24px 60px -16px oklch(22% 0.02 250 / 0.22);
+  --shadow-focus: 0 0 0 3px var(--ring);
+
+  /* ── Z-index ─────────────────────────────────────────────────────────── */
+  --z-base: 0;        /* @kind other */
+  --z-sticky: 100;    /* @kind other */
+  --z-dropdown: 300;  /* @kind other */
+  --z-overlay: 400;   /* @kind other */
+  --z-modal: 500;     /* @kind other */
+  --z-toast: 600;     /* @kind other */
+  --z-tooltip: 700;   /* @kind other */
+
+  /* ── Motion (from beUI foundation) ───────────────────────────────────── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);      /* @kind other */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1); /* @kind other */
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);  /* @kind other */
+  --dur-fast: 120ms;     /* @kind other */
+  --dur-base: 180ms;     /* @kind other */
+  --dur-moderate: 260ms; /* @kind other */
+  --dur-slow: 380ms;     /* @kind other */
+
+  /* Layout */
+  --sidebar-width: 248px; /* @kind spacing */
+  --topbar-height: 60px;  /* @kind spacing */
+  --content-max: 1240px;  /* @kind spacing */
+}

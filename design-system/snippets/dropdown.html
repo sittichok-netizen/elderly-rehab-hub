@@ -1,0 +1,141 @@
+<!--
+  COMPONENT: Dropdown
+  Wrapper:    .sensory-dropdown-wrap  (position: relative on parent)
+  Menu class: .sensory-dropdown
+  State:      .is-open  (add to .sensory-dropdown)
+  Variants:   .is-right  (right-align menu)
+              .is-up     (open upward — auto-set by SensoryUI for viewport fit)
+  Items:      .sensory-dropdown-item  (button, interactive)
+              .sensory-dropdown-item.is-danger  (destructive action)
+              .sensory-dropdown-divider  (separator rule)
+  JS:         SensoryUI.dropdown.toggle("menu-id", triggerEl)
+              SensoryUI.dropdown.close("menu-id")
+              data-sensory-dropdown="menu-id"  (on trigger)
+  A11y:       trigger needs aria-haspopup + aria-expanded (auto-set by SensoryUI)
+              menu uses aria-hidden (auto-set)
+              keyboard: Arrow Up/Down navigate, Escape closes, Tab closes
+-->
+
+<!-- ── Basic dropdown ──────────────────────────────────────── -->
+<div class="sensory-dropdown-wrap">
+  <button class="sensory-btn is-secondary is-sm"
+          data-sensory-dropdown="actions-menu"
+          aria-haspopup="true"
+          aria-expanded="false">
+    การดำเนินการ
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true" style="margin-left:4px">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </button>
+
+  <div class="sensory-dropdown" id="actions-menu" aria-hidden="true">
+    <button class="sensory-dropdown-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+           viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+      </svg>
+      แก้ไขข้อมูล
+    </button>
+    <button class="sensory-dropdown-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+           viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      ดาวน์โหลดรายงาน
+    </button>
+    <div class="sensory-dropdown-divider" role="separator"></div>
+    <button class="sensory-dropdown-item is-danger">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+           viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <polyline points="3 6 5 6 21 6"/>
+        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+        <path d="M10 11v6"/><path d="M14 11v6"/>
+        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+      </svg>
+      ลบพนักงาน
+    </button>
+  </div>
+</div>
+
+
+<!-- ── Right-aligned dropdown (.is-right) ─────────────────── -->
+<!-- Use when trigger is near the right edge of the viewport    -->
+<div class="sensory-dropdown-wrap" style="display:inline-block">
+  <button class="sensory-btn is-ghost is-sm"
+          data-sensory-dropdown="row-context-menu"
+          aria-label="เพิ่มเติม"
+          aria-haspopup="true"
+          aria-expanded="false">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/>
+      <circle cx="12" cy="19" r="1"/>
+    </svg>
+  </button>
+
+  <div class="sensory-dropdown is-right" id="row-context-menu" aria-hidden="true">
+    <button class="sensory-dropdown-item">ดูรายละเอียด</button>
+    <button class="sensory-dropdown-item">แก้ไข</button>
+    <div class="sensory-dropdown-divider" role="separator"></div>
+    <button class="sensory-dropdown-item is-danger">ปฏิเสธคำขอ</button>
+  </div>
+</div>
+
+
+<!--
+  CLASS CONTRACT
+  ─────────────────────────────────────────────────────
+  .sensory-dropdown-wrap
+    - Must wrap trigger + menu together (provides position:relative context)
+
+  .sensory-dropdown
+    - absolute positioned below trigger by default
+    - min-width: 160px, max-width: 280px
+    - translateY(-6px) → translateY(0) + opacity entrance
+    - .is-open  → visible
+    - .is-right → right-align to trigger (set by SensoryUI or manually)
+    - .is-up    → open upward (auto-set by SensoryUI for viewport fit)
+
+  .sensory-dropdown-item
+    - full-width button, no border, padding var(--space-2) var(--space-3)
+    - hover: var(--surface-hover)
+    - focus-visible: box-shadow: var(--shadow-focus)
+    - .is-danger → var(--status-danger) text + danger hover tint
+
+  .sensory-dropdown-divider
+    - border-top rule, margin var(--space-1) 0
+    - add role="separator" for accessibility
+
+  A11Y NOTES
+  ─────────────────────────────────────────────────────
+  ✓ Trigger: aria-haspopup="true" + aria-expanded (SensoryUI auto-sets)
+  ✓ Menu: aria-hidden (SensoryUI auto-sets)
+  ✓ Items: use <button> — not <a> unless they navigate to a URL
+  ✓ Arrow Up/Down: navigate items  |  Escape: close + return focus
+  ✓ Divider: role="separator" on .sensory-dropdown-divider
+
+  DO / DON'T
+  ─────────────────────────────────────────────────────
+  ✓ Use data-sensory-dropdown="[id]" on trigger to wire automatically
+  ✓ Use .is-right for triggers near right edge (SensoryUI auto-detects)
+  ✓ Keep item labels short, action-first (Thai: กริยา + กรรม)
+  ✓ Dangerous/destructive items go last, after a divider, with .is-danger
+  ✗ Don't nest dropdowns
+  ✗ Don't put form controls (inputs, checkboxes) inside dropdown items
+  ✗ Don't use dropdown for navigation with many items — use sidebar/tabs
+  ✗ Don't open dropdown on hover — keyboard users can't reach it
+-->

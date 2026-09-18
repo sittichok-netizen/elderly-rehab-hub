@@ -1,0 +1,24 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "elderly-rehab-hub",
+  "compatibility_date": "2026-09-18",
+  "main": "worker.js",
+  "assets": {
+    "directory": "./",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "elderly_rehab_hub",
+      "database_id": "3776e612-e646-4ec6-aef5-a8061ef41bd2"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "FILES",
+      "bucket_name": "elderly-rehab-hub-files"
+    }
+  ]
+}

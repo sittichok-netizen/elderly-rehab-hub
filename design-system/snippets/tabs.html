@@ -1,0 +1,109 @@
+<!-- ================================================================
+     SNIPPET: sensory-tabs / sensory-tab
+     Container: .sensory-tabs.is-pill  OR  .sensory-tabs.is-underline
+     Tab item:  .sensory-tab  |  active: .is-active
+     Count:     <span class="tab-count"> inside .sensory-tab
+     Behavior:  CSS-only (is-active toggled via JS) — ดู app.js สำหรับ vanilla handler
+     A11y:      ใช้ role="tablist" / role="tab" / aria-selected / aria-controls
+                tab panel ควรมี role="tabpanel" + id ตรงกับ aria-controls
+     ================================================================ -->
+
+<!-- Pill tabs (default — ใช้บน surface-sunken bg) -->
+<div class="sensory-tabs is-pill" role="tablist" aria-label="เมนูหลัก">
+  <button class="sensory-tab is-active" role="tab" aria-selected="true" aria-controls="panel-all" id="tab-all" type="button">
+    ทั้งหมด
+  </button>
+  <button class="sensory-tab" role="tab" aria-selected="false" aria-controls="panel-pending" id="tab-pending" type="button">
+    รออนุมัติ
+  </button>
+  <button class="sensory-tab" role="tab" aria-selected="false" aria-controls="panel-approved" id="tab-approved" type="button">
+    อนุมัติแล้ว
+  </button>
+</div>
+
+<!-- Pill tabs with count -->
+<div class="sensory-tabs is-pill" role="tablist" aria-label="คำขอลา">
+  <button class="sensory-tab is-active" role="tab" aria-selected="true" type="button">
+    ทั้งหมด <span class="tab-count">24</span>
+  </button>
+  <button class="sensory-tab" role="tab" aria-selected="false" type="button">
+    รออนุมัติ <span class="tab-count">3</span>
+  </button>
+  <button class="sensory-tab" role="tab" aria-selected="false" type="button">
+    อนุมัติแล้ว <span class="tab-count">18</span>
+  </button>
+  <button class="sensory-tab" role="tab" aria-selected="false" type="button">
+    ปฏิเสธ <span class="tab-count">3</span>
+  </button>
+</div>
+
+<!-- Underline tabs (ใช้กับ page-level navigation หรือบน card header) -->
+<div class="sensory-tabs is-underline" role="tablist" aria-label="ส่วนของแดชบอร์ด">
+  <button class="sensory-tab is-active" role="tab" aria-selected="true" type="button">
+    ภาพรวม
+  </button>
+  <button class="sensory-tab" role="tab" aria-selected="false" type="button">
+    ประวัติการลา
+  </button>
+  <button class="sensory-tab" role="tab" aria-selected="false" type="button">
+    การประเมิน
+  </button>
+  <button class="sensory-tab" role="tab" aria-selected="false" type="button">
+    เอกสาร
+  </button>
+</div>
+
+<!-- Complete accessible tabs with panels -->
+<div>
+  <div class="sensory-tabs is-pill" role="tablist" aria-label="ตัวอย่าง tabs">
+    <button class="sensory-tab is-active" role="tab" aria-selected="true"
+            aria-controls="demo-panel-1" id="demo-tab-1" type="button">แท็บที่ 1</button>
+    <button class="sensory-tab" role="tab" aria-selected="false"
+            aria-controls="demo-panel-2" id="demo-tab-2" type="button">แท็บที่ 2</button>
+    <button class="sensory-tab" role="tab" aria-selected="false"
+            aria-controls="demo-panel-3" id="demo-tab-3" type="button">แท็บที่ 3</button>
+  </div>
+
+  <div id="demo-panel-1" role="tabpanel" aria-labelledby="demo-tab-1"
+       style="padding:16px 0; font-size:var(--text-sm); color:var(--text-body);">
+    เนื้อหาของแท็บที่ 1
+  </div>
+  <div id="demo-panel-2" role="tabpanel" aria-labelledby="demo-tab-2" hidden
+       style="padding:16px 0; font-size:var(--text-sm); color:var(--text-body);">
+    เนื้อหาของแท็บที่ 2
+  </div>
+  <div id="demo-panel-3" role="tabpanel" aria-labelledby="demo-tab-3" hidden
+       style="padding:16px 0; font-size:var(--text-sm); color:var(--text-body);">
+    เนื้อหาของแท็บที่ 3
+  </div>
+</div>
+
+<!-- Vanilla JS handler (ใส่ใน <script> ของหน้านั้น หรือ app.js) -->
+<script>
+document.querySelectorAll('.sensory-tabs').forEach(tabList => {
+  tabList.addEventListener('click', e => {
+    const tab = e.target.closest('.sensory-tab');
+    if (!tab) return;
+    tabList.querySelectorAll('.sensory-tab').forEach(t => {
+      t.classList.remove('is-active');
+      t.setAttribute('aria-selected', 'false');
+    });
+    tab.classList.add('is-active');
+    tab.setAttribute('aria-selected', 'true');
+    // show/hide panels
+    const panelId = tab.getAttribute('aria-controls');
+    if (panelId) {
+      const container = tabList.closest('[data-tabs]') || document;
+      container.querySelectorAll('[role="tabpanel"]').forEach(p => p.hidden = true);
+      const panel = document.getElementById(panelId);
+      if (panel) panel.hidden = false;
+    }
+  });
+});
+</script>
+
+<!-- ✓ DO: ใช้ is-pill บน panel/card, is-underline บน page-level nav -->
+<!-- ✓ DO: ใส่ role="tablist/tab", aria-selected, aria-controls ทุกครั้ง -->
+<!-- ✓ DO: add .is-active ด้วย JS ไม่ใช่ inline style -->
+<!-- ✗ DO NOT: เปลี่ยน active state ด้วย style="color:..." inline -->
+<!-- ✗ DO NOT: ผสม is-pill กับ is-underline ใน tablist เดียวกัน -->

@@ -1,0 +1,83 @@
+<!-- ================================================================
+     SNIPPET: sensory-check.is-radio (Radio Button)
+     Base:    .sensory-check.is-radio  (border-radius: pill on .box)
+     Control: <input type="radio" name="..."> — ต้องมี name เดียวกันใน group
+     Dot:     <span class="sensory-radio-dot"> inside .box
+     Disabled:.sensory-check.is-disabled + disabled attr on input
+     A11y:    radio group ต้องอยู่ใน <fieldset> + <legend>
+              name attribute ต้องตรงกันทุก option ใน group
+     ================================================================ -->
+
+<!-- Radio group — ประเภทการลา -->
+<fieldset style="border:none; padding:0; margin:0;">
+  <legend class="sensory-label" style="margin-bottom:8px;">
+    ประเภทการลา <span class="req">*</span>
+  </legend>
+  <div style="display:flex; flex-direction:column; gap:8px;">
+
+    <label class="sensory-check is-radio">
+      <input type="radio" name="leave-type" value="annual" checked />
+      <span class="box">
+        <span class="sensory-radio-dot"></span>
+      </span>
+      ลาพักร้อน
+    </label>
+
+    <label class="sensory-check is-radio">
+      <input type="radio" name="leave-type" value="sick" />
+      <span class="box">
+        <span class="sensory-radio-dot"></span>
+      </span>
+      ลาป่วย
+    </label>
+
+    <label class="sensory-check is-radio">
+      <input type="radio" name="leave-type" value="personal" />
+      <span class="box">
+        <span class="sensory-radio-dot"></span>
+      </span>
+      ลากิจ
+    </label>
+
+    <label class="sensory-check is-radio is-disabled">
+      <input type="radio" name="leave-type" value="maternity" disabled />
+      <span class="box">
+        <span class="sensory-radio-dot"></span>
+      </span>
+      ลาคลอด (ไม่เปิดใช้งาน)
+    </label>
+
+  </div>
+</fieldset>
+
+<!-- Radio group — จำนวนวันลา (แนวนอน) -->
+<fieldset style="border:none; padding:0; margin:0;">
+  <legend class="sensory-label" style="margin-bottom:8px;">จำนวนวันลา</legend>
+  <div style="display:flex; gap:16px; flex-wrap:wrap;">
+
+    <label class="sensory-check is-radio">
+      <input type="radio" name="duration" value="half-am" />
+      <span class="box"><span class="sensory-radio-dot"></span></span>
+      ครึ่งวันเช้า
+    </label>
+
+    <label class="sensory-check is-radio">
+      <input type="radio" name="duration" value="half-pm" />
+      <span class="box"><span class="sensory-radio-dot"></span></span>
+      ครึ่งวันบ่าย
+    </label>
+
+    <label class="sensory-check is-radio">
+      <input type="radio" name="duration" value="full" checked />
+      <span class="box"><span class="sensory-radio-dot"></span></span>
+      เต็มวัน
+    </label>
+
+  </div>
+</fieldset>
+
+<!-- ✓ DO: radio ทุกตัวใน group ต้องมี name เดียวกัน -->
+<!-- ✓ DO: ใส่ <span class="sensory-radio-dot"> ใน .box (แทน SVG check) -->
+<!-- ✓ DO: ใช้ <fieldset> + <legend> ทุกครั้ง -->
+<!-- ✗ DO NOT: ลืม name attribute — radio จะ toggle แทน exclusive select -->
+<!-- ✗ DO NOT: ใช้ checkbox แทน radio เมื่อต้องการ single-select -->

@@ -1,0 +1,1049 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HAH Sensory Design System — Docs</title>
+  <!-- Inject <base> so relative paths resolve correctly regardless of trailing slash.
+       Must run before <link> elements so the base is set before they are parsed. -->
+  <script>(function(){var p=location.pathname,d=/\.[a-z]{2,5}$/.test(p)?p.slice(0,p.lastIndexOf('/')+1):p.replace(/\/?$/,'/'),b=document.createElement('base');b.href=location.origin+d;document.head.appendChild(b);})()</script>
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<div class="docs-wrap">
+
+  <!-- ── Header ─────────────────────────────────────────── -->
+  <header class="docs-header">
+    <span class="docs-header-brand">HAH Sensory</span>
+    <span class="docs-header-tag">Design System</span>
+    <button class="docs-header-mobile-toggle" id="docs-sidebar-toggle"
+            aria-expanded="false" aria-controls="docs-sidebar">
+      ☰ เมนู
+    </button>
+    <span class="docs-header-version">v1.0</span>
+  </header>
+
+  <!-- ── Sidebar ────────────────────────────────────────── -->
+  <nav class="docs-sidebar" id="docs-sidebar" aria-label="เนื้อหา Docs">
+    <div class="docs-nav-group">
+      <div class="docs-nav-group-label">เริ่มต้น</div>
+      <a class="docs-nav-link" href="#getting-started">เริ่มต้นใช้งาน</a>
+      <a class="docs-nav-link" href="#sensory-ui">SensoryUI.js</a>
+    </div>
+    <div class="docs-nav-group">
+      <div class="docs-nav-group-label">Design Tokens</div>
+      <a class="docs-nav-link" href="#tokens-color">สี (Colors)</a>
+      <a class="docs-nav-link" href="#tokens-typography">Typography</a>
+      <a class="docs-nav-link" href="#tokens-spacing">Spacing</a>
+    </div>
+    <div class="docs-nav-group">
+      <div class="docs-nav-group-label">Components</div>
+      <a class="docs-nav-link" href="#comp-button">Button</a>
+      <a class="docs-nav-link" href="#comp-badge">Badge &amp; Tag</a>
+      <a class="docs-nav-link" href="#comp-card">Card</a>
+      <a class="docs-nav-link" href="#comp-alert">Alert</a>
+      <a class="docs-nav-link" href="#comp-input">Input &amp; Textarea</a>
+      <a class="docs-nav-link" href="#comp-select">Select</a>
+      <a class="docs-nav-link" href="#comp-checkbox">Checkbox &amp; Radio</a>
+      <a class="docs-nav-link" href="#comp-switch">Switch</a>
+      <a class="docs-nav-link" href="#comp-tabs">Tabs</a>
+      <a class="docs-nav-link" href="#comp-table">Table</a>
+      <a class="docs-nav-link" href="#comp-avatar">Avatar</a>
+      <a class="docs-nav-link" href="#comp-progress">Progress</a>
+      <a class="docs-nav-link" href="#comp-drawer">Drawer</a>
+      <a class="docs-nav-link" href="#comp-modal">Modal</a>
+      <a class="docs-nav-link" href="#comp-dropdown">Dropdown</a>
+    </div>
+    <div class="docs-nav-group">
+      <div class="docs-nav-group-label">Patterns</div>
+      <a class="docs-nav-link" href="#pattern-layout">Shell Layout</a>
+      <a class="docs-nav-link" href="#pattern-form">Form Layout</a>
+    </div>
+  </nav>
+
+  <!-- ── Main content ───────────────────────────────────── -->
+  <main class="docs-content">
+
+    <!-- ══ Getting Started ══════════════════════════════════ -->
+    <section class="doc-section" id="getting-started" data-doc-section>
+      <h1 class="doc-section-title">เริ่มต้นใช้งาน</h1>
+      <p class="doc-section-desc">
+        HAH Sensory Design System ใช้งานด้วย CSS ไฟล์เดียว ไม่ต้องพึ่ง React, Babel หรือ bundler
+      </p>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">1. Import styles</h2>
+        <div class="doc-code-wrap is-standalone">
+          <button class="doc-copy-btn">คัดลอก</button>
+          <code class="doc-code">&lt;!-- วางใน &lt;head&gt; — ไฟล์เดียวได้ทุก component --&gt;
+&lt;link rel="stylesheet" href="/design-system/styles.css"&gt;</code>
+        </div>
+      </div>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">2. Import behavior layer (optional)</h2>
+        <div class="doc-code-wrap is-standalone">
+          <button class="doc-copy-btn">คัดลอก</button>
+          <code class="doc-code">&lt;!-- วางก่อน &lt;/body&gt; เพื่อใช้ SensoryUI.drawer / .modal / .toast / .dropdown --&gt;
+&lt;script src="/design-system/sensory-ui.js"&gt;&lt;/script&gt;</code>
+        </div>
+      </div>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">3. ใช้ component</h2>
+        <div class="doc-code-wrap is-standalone">
+          <button class="doc-copy-btn">คัดลอก</button>
+          <code class="doc-code">&lt;!-- ทุก component ใช้ sensory-* prefix --&gt;
+&lt;button class="sensory-btn is-primary"&gt;บันทึก&lt;/button&gt;
+&lt;span class="sensory-badge tone-success"&gt;อนุมัติ&lt;/span&gt;
+&lt;div class="sensory-card"&gt;...&lt;/div&gt;</code>
+        </div>
+      </div>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Cloudflare Pages — path structure</h2>
+        <div class="doc-code-wrap is-standalone">
+          <button class="doc-copy-btn">คัดลอก</button>
+          <code class="doc-code">public/
+  design-system/
+    styles.css          ← @import manifest
+    sensory-ui.js       ← behavior layer
+    tokens/             ← CSS token files
+      fonts.css
+      colors.css
+      typography.css
+      spacing.css
+      base.css
+      components.css</code>
+        </div>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ SensoryUI JS ══════════════════════════════════════ -->
+    <section class="doc-section" id="sensory-ui" data-doc-section>
+      <h1 class="doc-section-title">SensoryUI.js</h1>
+      <p class="doc-section-desc">
+        Vanilla JS behavior layer — dependency-free, data-attribute driven.
+        auto-init ทุก component ใน DOM เมื่อ DOMContentLoaded
+      </p>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Data attributes (auto-wired)</h2>
+        <table class="doc-api-table" style="margin-bottom: var(--space-6)">
+          <thead><tr><th>Attribute</th><th>ใช้กับ</th><th>พฤติกรรม</th></tr></thead>
+          <tbody>
+            <tr><td><code>data-drawer-open="id"</code></td><td>button</td><td>เปิด Drawer ที่ id นั้น</td></tr>
+            <tr><td><code>data-drawer-close="id"</code></td><td>button</td><td>ปิด Drawer</td></tr>
+            <tr><td><code>data-drawer-scrim="id"</code></td><td>scrim div</td><td>คลิก backdrop ปิด Drawer</td></tr>
+            <tr><td><code>data-modal-open="id"</code></td><td>button</td><td>เปิด Modal</td></tr>
+            <tr><td><code>data-modal-close="id"</code></td><td>button</td><td>ปิด Modal</td></tr>
+            <tr><td><code>data-modal-scrim="id"</code></td><td>scrim div</td><td>คลิก backdrop ปิด Modal</td></tr>
+            <tr><td><code>data-sensory-dropdown="id"</code></td><td>button</td><td>toggle Dropdown</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Programmatic API</h2>
+        <div class="doc-code-wrap is-standalone">
+          <button class="doc-copy-btn">คัดลอก</button>
+          <code class="doc-code">SensoryUI.drawer.open('my-drawer', triggerEl)   // เปิด drawer + focus trap
+SensoryUI.drawer.close('my-drawer')             // ปิด + return focus to trigger
+
+SensoryUI.modal.open('confirm-modal', triggerEl)
+SensoryUI.modal.close('confirm-modal')
+
+SensoryUI.toast('บันทึกแล้ว', { tone: 'success', duration: 3500 })
+// tones: 'success' | 'warning' | 'danger' | 'info'
+
+SensoryUI.dropdown.toggle('actions-menu', triggerEl)
+SensoryUI.dropdown.close('actions-menu')
+
+SensoryUI.init()  // re-wire ทุก component (เรียกหลัง dynamic DOM insert)</code>
+        </div>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Colors ════════════════════════════════════════════ -->
+    <section class="doc-section" id="tokens-color" data-doc-section>
+      <h1 class="doc-section-title">สี (Colors)</h1>
+      <p class="doc-section-desc">ใช้ CSS custom property เสมอ — ห้าม hardcode #hex หรือ rgb()</p>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Brand</h2>
+        <div class="doc-swatch-grid">
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--brand)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Brand</div><div class="doc-swatch-var">--brand</div></div></div>
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--brand-light)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Brand Light</div><div class="doc-swatch-var">--brand-light</div></div></div>
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--brand-dark)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Brand Dark</div><div class="doc-swatch-var">--brand-dark</div></div></div>
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--brand-soft)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Brand Soft</div><div class="doc-swatch-var">--brand-soft</div></div></div>
+        </div>
+      </div>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Surface</h2>
+        <div class="doc-swatch-grid">
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--surface-app);border-bottom:1px solid var(--border-subtle)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">App</div><div class="doc-swatch-var">--surface-app</div></div></div>
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--surface-card);border-bottom:1px solid var(--border-subtle)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Card</div><div class="doc-swatch-var">--surface-card</div></div></div>
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--surface-hover)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Hover</div><div class="doc-swatch-var">--surface-hover</div></div></div>
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--surface-overlay)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Overlay</div><div class="doc-swatch-var">--surface-overlay</div></div></div>
+        </div>
+      </div>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Status</h2>
+        <div class="doc-swatch-grid">
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--status-success)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Success</div><div class="doc-swatch-var">--status-success</div></div></div>
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--status-warning)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Warning</div><div class="doc-swatch-var">--status-warning</div></div></div>
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--status-danger)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Danger</div><div class="doc-swatch-var">--status-danger</div></div></div>
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--status-info)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Info</div><div class="doc-swatch-var">--status-info</div></div></div>
+        </div>
+      </div>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Text</h2>
+        <div class="doc-swatch-grid">
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--text-heading)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Heading</div><div class="doc-swatch-var">--text-heading</div></div></div>
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--text-body)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Body</div><div class="doc-swatch-var">--text-body</div></div></div>
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--text-muted)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Muted</div><div class="doc-swatch-var">--text-muted</div></div></div>
+          <div class="doc-swatch"><div class="doc-swatch-color" style="background:var(--text-disabled)"></div><div class="doc-swatch-info"><div class="doc-swatch-name">Disabled</div><div class="doc-swatch-var">--text-disabled</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Typography ════════════════════════════════════════ -->
+    <section class="doc-section" id="tokens-typography" data-doc-section>
+      <h1 class="doc-section-title">Typography</h1>
+      <p class="doc-section-desc">Google Sans (display ≥17px) / Google Sans Text (body) / Google Sans Code (mono)</p>
+
+      <div class="doc-preview is-block" style="gap: var(--space-4)">
+        <div style="font-family:var(--font-display);font-size:var(--text-3xl);font-weight:var(--fw-semibold);color:var(--text-heading);margin-bottom:var(--space-3)">หัวข้อใหญ่ — Display 3xl</div>
+        <div style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:var(--fw-semibold);color:var(--text-heading);margin-bottom:var(--space-3)">หัวข้อรอง — Display xl</div>
+        <div style="font-family:var(--font-sans);font-size:var(--text-base);color:var(--text-body);margin-bottom:var(--space-3)">ข้อความเนื้อหา — Sans base (Google Sans Text)</div>
+        <div style="font-family:var(--font-sans);font-size:var(--text-sm);color:var(--text-muted);margin-bottom:var(--space-3)">ข้อความรอง — Sans sm (muted)</div>
+        <div style="font-family:var(--font-mono);font-size:var(--text-sm);color:var(--text-body)">1,234,567.89 — Mono (tabular-nums)</div>
+      </div>
+      <div class="doc-code-wrap">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">--font-display: 'Google Sans', sans-serif;   /* heading ≥ 17px */
+--font-sans:    'Google Sans Text', sans-serif; /* body, UI */
+--font-mono:    'Google Sans Code', monospace;  /* code, numbers */
+
+/* Scale */
+--text-xs: 11px  --text-sm: 13px  --text-base: 15px
+--text-lg: 17px  --text-xl: 20px  --text-2xl: 24px  --text-3xl: 30px
+
+/* Weight */
+--fw-regular: 400  --fw-medium: 500  --fw-semibold: 600  --fw-bold: 700</code>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Spacing ═══════════════════════════════════════════ -->
+    <section class="doc-section" id="tokens-spacing" data-doc-section>
+      <h1 class="doc-section-title">Spacing</h1>
+      <p class="doc-section-desc">4px base unit — ใช้ --space-* ทุกที่ ห้าม hardcode px นอกจาก 0</p>
+      <div class="doc-preview is-block">
+        <div class="doc-space-row"><div class="doc-space-bar" style="width:var(--space-1)"></div><span class="doc-space-label">--space-1</span><span class="doc-space-value">4px</span></div>
+        <div class="doc-space-row"><div class="doc-space-bar" style="width:var(--space-2)"></div><span class="doc-space-label">--space-2</span><span class="doc-space-value">8px</span></div>
+        <div class="doc-space-row"><div class="doc-space-bar" style="width:var(--space-3)"></div><span class="doc-space-label">--space-3</span><span class="doc-space-value">12px</span></div>
+        <div class="doc-space-row"><div class="doc-space-bar" style="width:var(--space-4)"></div><span class="doc-space-label">--space-4</span><span class="doc-space-value">16px</span></div>
+        <div class="doc-space-row"><div class="doc-space-bar" style="width:var(--space-5)"></div><span class="doc-space-label">--space-5</span><span class="doc-space-value">20px</span></div>
+        <div class="doc-space-row"><div class="doc-space-bar" style="width:var(--space-6)"></div><span class="doc-space-label">--space-6</span><span class="doc-space-value">24px</span></div>
+        <div class="doc-space-row"><div class="doc-space-bar" style="width:var(--space-8)"></div><span class="doc-space-label">--space-8</span><span class="doc-space-value">32px</span></div>
+        <div class="doc-space-row"><div class="doc-space-bar" style="width:var(--space-10)"></div><span class="doc-space-label">--space-10</span><span class="doc-space-value">40px</span></div>
+        <div class="doc-space-row"><div class="doc-space-bar" style="width:var(--space-12)"></div><span class="doc-space-label">--space-12</span><span class="doc-space-value">48px</span></div>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Button ════════════════════════════════════════════ -->
+    <section class="doc-section" id="comp-button" data-doc-section>
+      <h1 class="doc-section-title">Button</h1>
+      <p class="doc-section-desc">
+        Base: <code style="font-family:var(--font-mono);font-size:var(--text-xs);background:var(--surface-hover);padding:2px 6px;border-radius:var(--radius-sm)">.sensory-btn</code>
+        — Variants: is-primary / is-secondary / is-ghost / is-danger / is-brand-soft
+        — Sizes: is-sm / is-md (default) / is-lg
+      </p>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Variants</h2>
+        <div class="doc-preview">
+          <button class="sensory-btn is-primary">Primary</button>
+          <button class="sensory-btn is-secondary">Secondary</button>
+          <button class="sensory-btn is-ghost">Ghost</button>
+          <button class="sensory-btn is-danger">Danger</button>
+          <button class="sensory-btn is-brand-soft">Brand Soft</button>
+        </div>
+        <div class="doc-code-wrap">
+          <button class="doc-copy-btn">คัดลอก</button>
+          <code class="doc-code">&lt;button class="sensory-btn is-primary"&gt;บันทึก&lt;/button&gt;
+&lt;button class="sensory-btn is-secondary"&gt;ยกเลิก&lt;/button&gt;
+&lt;button class="sensory-btn is-ghost"&gt;ดูเพิ่มเติม&lt;/button&gt;
+&lt;button class="sensory-btn is-danger"&gt;ลบ&lt;/button&gt;
+&lt;button class="sensory-btn is-brand-soft"&gt;ดาวน์โหลด&lt;/button&gt;</code>
+        </div>
+      </div>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Sizes</h2>
+        <div class="doc-preview">
+          <button class="sensory-btn is-primary is-sm">เล็ก</button>
+          <button class="sensory-btn is-primary">กลาง (default)</button>
+          <button class="sensory-btn is-primary is-lg">ใหญ่</button>
+        </div>
+        <div class="doc-code-wrap">
+          <button class="doc-copy-btn">คัดลอก</button>
+          <code class="doc-code">&lt;button class="sensory-btn is-primary is-sm"&gt;เล็ก&lt;/button&gt;
+&lt;button class="sensory-btn is-primary"&gt;กลาง&lt;/button&gt;
+&lt;button class="sensory-btn is-primary is-lg"&gt;ใหญ่&lt;/button&gt;</code>
+        </div>
+      </div>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">States</h2>
+        <div class="doc-preview">
+          <button class="sensory-btn is-primary" disabled>Disabled</button>
+          <button class="sensory-btn is-primary is-loading" aria-busy="true">กำลังบันทึก…</button>
+          <button class="sensory-btn is-primary is-block" style="width:200px">Full width (is-block)</button>
+        </div>
+        <div class="doc-code-wrap">
+          <button class="doc-copy-btn">คัดลอก</button>
+          <code class="doc-code">&lt;button class="sensory-btn is-primary" disabled&gt;Disabled&lt;/button&gt;
+&lt;button class="sensory-btn is-primary is-loading" aria-busy="true"&gt;กำลังบันทึก…&lt;/button&gt;
+&lt;button class="sensory-btn is-primary is-block"&gt;Full width&lt;/button&gt;</code>
+        </div>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Badge & Tag ═══════════════════════════════════════ -->
+    <section class="doc-section" id="comp-badge" data-doc-section>
+      <h1 class="doc-section-title">Badge &amp; Tag</h1>
+      <p class="doc-section-desc">Badge = semantic status (อนุมัติ/ปฏิเสธ/รอ). Tag = neutral label.</p>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Badge tones</h2>
+        <div class="doc-preview">
+          <span class="sensory-badge tone-success">อนุมัติ</span>
+          <span class="sensory-badge tone-warning">รออนุมัติ</span>
+          <span class="sensory-badge tone-danger">ปฏิเสธ</span>
+          <span class="sensory-badge tone-info">ข้อมูล</span>
+          <span class="sensory-badge tone-neutral">ร่าง</span>
+          <span class="sensory-badge tone-brand">ใหม่</span>
+        </div>
+        <div class="doc-code-wrap">
+          <button class="doc-copy-btn">คัดลอก</button>
+          <code class="doc-code">&lt;span class="sensory-badge tone-success"&gt;อนุมัติ&lt;/span&gt;
+&lt;span class="sensory-badge tone-warning"&gt;รออนุมัติ&lt;/span&gt;
+&lt;span class="sensory-badge tone-danger"&gt;ปฏิเสธ&lt;/span&gt;
+&lt;span class="sensory-badge tone-info"&gt;ข้อมูล&lt;/span&gt;
+&lt;span class="sensory-badge tone-neutral"&gt;ร่าง&lt;/span&gt;
+&lt;span class="sensory-badge tone-brand"&gt;ใหม่&lt;/span&gt;</code>
+        </div>
+      </div>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Badge is-solid</h2>
+        <div class="doc-preview">
+          <span class="sensory-badge tone-success is-solid">มาทำงาน</span>
+          <span class="sensory-badge tone-warning is-solid">ลา</span>
+          <span class="sensory-badge tone-danger is-solid">ขาดงาน</span>
+        </div>
+        <div class="doc-code-wrap">
+          <button class="doc-copy-btn">คัดลอก</button>
+          <code class="doc-code">&lt;span class="sensory-badge tone-success is-solid"&gt;มาทำงาน&lt;/span&gt;
+&lt;span class="sensory-badge tone-warning is-solid"&gt;ลา&lt;/span&gt;
+&lt;span class="sensory-badge tone-danger is-solid"&gt;ขาดงาน&lt;/span&gt;</code>
+        </div>
+      </div>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Tag</h2>
+        <div class="doc-preview">
+          <span class="sensory-tag">แผนก IT</span>
+          <span class="sensory-tag">Full-time</span>
+          <span class="sensory-tag">ทดลองงาน</span>
+        </div>
+        <div class="doc-code-wrap">
+          <button class="doc-copy-btn">คัดลอก</button>
+          <code class="doc-code">&lt;span class="sensory-tag"&gt;แผนก IT&lt;/span&gt;</code>
+        </div>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Card ══════════════════════════════════════════════ -->
+    <section class="doc-section" id="comp-card" data-doc-section>
+      <h1 class="doc-section-title">Card</h1>
+      <p class="doc-section-desc">Container หลักสำหรับจัดกลุ่มเนื้อหา — Variants: is-flat / is-interactive</p>
+
+      <div class="doc-preview" style="align-items:stretch">
+        <div class="sensory-card" style="width:200px">
+          <div class="sensory-card-header">
+            <div class="sensory-card-title">พนักงานวันนี้</div>
+          </div>
+          <div class="sensory-card-pad">
+            <div style="font-family:var(--font-display);font-size:var(--text-3xl);font-weight:var(--fw-semibold);color:var(--text-heading)">48</div>
+            <div style="font-size:var(--text-sm);color:var(--text-muted)">จากเมื่อวาน 45 คน</div>
+          </div>
+        </div>
+        <div class="sensory-card is-interactive" style="width:200px">
+          <div class="sensory-card-pad">
+            <div style="font-size:var(--text-sm);font-weight:var(--fw-medium);color:var(--text-heading)">Card Interactive</div>
+            <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:var(--space-1)">คลิกได้ มี hover state</div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code-wrap">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">&lt;div class="sensory-card"&gt;
+  &lt;div class="sensory-card-header"&gt;
+    &lt;div class="sensory-card-title"&gt;หัวข้อ&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="sensory-card-pad"&gt;
+    เนื้อหา
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Interactive card (คลิกได้ทั้งก้อน) --&gt;
+&lt;div class="sensory-card is-interactive" role="button" tabindex="0"&gt;
+  &lt;div class="sensory-card-pad"&gt;เนื้อหา&lt;/div&gt;
+&lt;/div&gt;</code>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Alert ═════════════════════════════════════════════ -->
+    <section class="doc-section" id="comp-alert" data-doc-section>
+      <h1 class="doc-section-title">Alert</h1>
+      <p class="doc-section-desc">In-page feedback — Tones: tone-info / tone-success / tone-warning / tone-danger</p>
+
+      <div class="doc-preview is-block" style="gap:var(--space-3)">
+        <div class="sensory-alert tone-info" style="margin-bottom:var(--space-3)">มีการอัปเดตระบบในวันที่ 5 ก.ค. เวลา 22:00–24:00 น.</div>
+        <div class="sensory-alert tone-success" style="margin-bottom:var(--space-3)">บันทึกข้อมูลพนักงานเรียบร้อยแล้ว</div>
+        <div class="sensory-alert tone-warning" style="margin-bottom:var(--space-3)">วันลาพักร้อนของคุณเหลือน้อยกว่า 3 วัน</div>
+        <div class="sensory-alert tone-danger">ไม่สามารถบันทึกได้ — กรุณาตรวจสอบข้อมูลอีกครั้ง</div>
+      </div>
+      <div class="doc-code-wrap">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">&lt;div class="sensory-alert tone-info"&gt;ข้อความแจ้งเตือน&lt;/div&gt;
+&lt;div class="sensory-alert tone-success"&gt;ดำเนินการสำเร็จ&lt;/div&gt;
+&lt;div class="sensory-alert tone-warning"&gt;ข้อควรระวัง&lt;/div&gt;
+
+&lt;!-- Error ที่ต้อง announce ให้ screen reader --&gt;
+&lt;div class="sensory-alert tone-danger" role="alert"&gt;เกิดข้อผิดพลาด&lt;/div&gt;</code>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Input & Textarea ══════════════════════════════════ -->
+    <section class="doc-section" id="comp-input" data-doc-section>
+      <h1 class="doc-section-title">Input &amp; Textarea</h1>
+      <p class="doc-section-desc">ห่อด้วย .sensory-field เสมอ — label → input → hint</p>
+
+      <div class="doc-preview is-block">
+        <div class="sensory-field" style="max-width:360px;margin-bottom:var(--space-4)">
+          <label class="sensory-label" for="doc-input-1">ชื่อ-นามสกุล</label>
+          <input class="sensory-input" id="doc-input-1" type="text" placeholder="เช่น นางสาวพิมพ์ใจ รักษ์ดี">
+          <span class="sensory-hint">ชื่อตามบัตรประชาชน</span>
+        </div>
+        <div class="sensory-field has-error" style="max-width:360px;margin-bottom:var(--space-4)">
+          <label class="sensory-label" for="doc-input-2">อีเมล</label>
+          <input class="sensory-input" id="doc-input-2" type="email" value="invalid" aria-invalid="true" aria-describedby="doc-input-2-err">
+          <span class="sensory-hint is-error" id="doc-input-2-err" role="alert">รูปแบบอีเมลไม่ถูกต้อง</span>
+        </div>
+        <div class="sensory-field" style="max-width:360px">
+          <label class="sensory-label" for="doc-textarea-1">เหตุผลการลา</label>
+          <textarea class="sensory-textarea" id="doc-textarea-1" rows="3" placeholder="อธิบายเหตุผล…"></textarea>
+        </div>
+      </div>
+      <div class="doc-code-wrap">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">&lt;div class="sensory-field"&gt;
+  &lt;label class="sensory-label" for="field-1"&gt;ชื่อ-นามสกุล&lt;/label&gt;
+  &lt;input class="sensory-input" id="field-1" type="text" placeholder="เช่น นางสาวพิมพ์ใจ"&gt;
+  &lt;span class="sensory-hint"&gt;ชื่อตามบัตรประชาชน&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Error state --&gt;
+&lt;div class="sensory-field has-error"&gt;
+  &lt;label class="sensory-label" for="field-2"&gt;อีเมล&lt;/label&gt;
+  &lt;input class="sensory-input" id="field-2" type="email" aria-invalid="true" aria-describedby="field-2-err"&gt;
+  &lt;span class="sensory-hint is-error" id="field-2-err" role="alert"&gt;รูปแบบอีเมลไม่ถูกต้อง&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;textarea class="sensory-textarea" rows="3"&gt;&lt;/textarea&gt;</code>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Select ════════════════════════════════════════════ -->
+    <section class="doc-section" id="comp-select" data-doc-section>
+      <h1 class="doc-section-title">Select</h1>
+      <div class="doc-preview is-block">
+        <div class="sensory-field" style="max-width:280px">
+          <label class="sensory-label" for="doc-sel-1">แผนก</label>
+          <select class="sensory-select" id="doc-sel-1">
+            <option value="">เลือกแผนก…</option>
+            <option>เทคโนโลยีสารสนเทศ</option>
+            <option>ทรัพยากรบุคคล</option>
+            <option>การเงินและบัญชี</option>
+          </select>
+        </div>
+      </div>
+      <div class="doc-code-wrap">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">&lt;div class="sensory-field"&gt;
+  &lt;label class="sensory-label" for="dept"&gt;แผนก&lt;/label&gt;
+  &lt;select class="sensory-select" id="dept"&gt;
+    &lt;option value=""&gt;เลือกแผนก…&lt;/option&gt;
+    &lt;option&gt;เทคโนโลยีสารสนเทศ&lt;/option&gt;
+    &lt;option&gt;ทรัพยากรบุคคล&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</code>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Checkbox & Radio ══════════════════════════════════ -->
+    <section class="doc-section" id="comp-checkbox" data-doc-section>
+      <h1 class="doc-section-title">Checkbox &amp; Radio</h1>
+      <div class="doc-preview is-block">
+        <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+          <label class="sensory-check">
+            <input type="checkbox" checked>
+            <span class="box"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>แจ้งเตือนทางอีเมล</span>
+          </label>
+          <label class="sensory-check">
+            <input type="checkbox">
+            <span class="box"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>แจ้งเตือน LINE</span>
+          </label>
+          <label class="sensory-check is-radio" style="margin-top:var(--space-3)">
+            <input type="radio" name="doc-radio" checked>
+            <span class="box"><span class="sensory-radio-dot"></span></span>
+            <span>ลาพักร้อน</span>
+          </label>
+          <label class="sensory-check is-radio">
+            <input type="radio" name="doc-radio">
+            <span class="box"><span class="sensory-radio-dot"></span></span>
+            <span>ลาป่วย</span>
+          </label>
+          <label class="sensory-check is-radio">
+            <input type="radio" name="doc-radio">
+            <span class="box"><span class="sensory-radio-dot"></span></span>
+            <span>ลากิจ</span>
+          </label>
+        </div>
+      </div>
+      <div class="doc-code-wrap">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">&lt;!-- Checkbox --&gt;
+&lt;label class="sensory-check"&gt;
+  &lt;input type="checkbox"&gt;
+  &lt;span class="box"&gt;
+    &lt;svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="3"
+         stroke-linecap="round" stroke-linejoin="round"&gt;
+      &lt;polyline points="20 6 9 17 4 12"/&gt;
+    &lt;/svg&gt;
+  &lt;/span&gt;
+  แจ้งเตือนทางอีเมล
+&lt;/label&gt;
+
+&lt;!-- Radio --&gt;
+&lt;label class="sensory-check is-radio"&gt;
+  &lt;input type="radio" name="leave-type"&gt;
+  &lt;span class="box"&gt;&lt;span class="sensory-radio-dot"&gt;&lt;/span&gt;&lt;/span&gt;
+  ลาพักร้อน
+&lt;/label&gt;</code>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Switch ════════════════════════════════════════════ -->
+    <section class="doc-section" id="comp-switch" data-doc-section>
+      <h1 class="doc-section-title">Switch</h1>
+      <div class="doc-preview">
+        <label class="sensory-switch">
+          <input type="checkbox" checked role="switch" aria-checked="true">
+          <span class="track"><span class="thumb"></span></span>
+          <span class="switch-label">เปิดใช้งาน</span>
+        </label>
+        <label class="sensory-switch">
+          <input type="checkbox" role="switch" aria-checked="false">
+          <span class="track"><span class="thumb"></span></span>
+          <span class="switch-label">ปิดการแจ้งเตือน</span>
+        </label>
+      </div>
+      <div class="doc-code-wrap">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">&lt;label class="sensory-switch"&gt;
+  &lt;input type="checkbox" role="switch" aria-checked="false"&gt;
+  &lt;span class="track"&gt;&lt;span class="thumb"&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class="switch-label"&gt;เปิดการแจ้งเตือน&lt;/span&gt;
+&lt;/label&gt;</code>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Tabs ═══════════════════════════════════════════════ -->
+    <section class="doc-section" id="comp-tabs" data-doc-section>
+      <h1 class="doc-section-title">Tabs</h1>
+      <p class="doc-section-desc">Auto-wired โดย SensoryUI — ใช้ aria-controls + hidden บน panel</p>
+
+      <div class="doc-preview is-block">
+        <div class="sensory-tabs is-underline" role="tablist" aria-label="doc-tabs-demo">
+          <button class="sensory-tab is-active" role="tab" aria-selected="true" aria-controls="doc-tab-panel-1">ทั้งหมด</button>
+          <button class="sensory-tab" role="tab" aria-selected="false" aria-controls="doc-tab-panel-2">รออนุมัติ</button>
+          <button class="sensory-tab" role="tab" aria-selected="false" aria-controls="doc-tab-panel-3">เสร็จสิ้น</button>
+        </div>
+        <div id="doc-tab-panel-1" role="tabpanel" style="padding:var(--space-4);font-size:var(--text-sm);color:var(--text-muted)">เนื้อหาแท็บ "ทั้งหมด"</div>
+        <div id="doc-tab-panel-2" role="tabpanel" hidden style="padding:var(--space-4);font-size:var(--text-sm);color:var(--text-muted)">เนื้อหาแท็บ "รออนุมัติ"</div>
+        <div id="doc-tab-panel-3" role="tabpanel" hidden style="padding:var(--space-4);font-size:var(--text-sm);color:var(--text-muted)">เนื้อหาแท็บ "เสร็จสิ้น"</div>
+      </div>
+      <div class="doc-code-wrap">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">&lt;div class="sensory-tabs is-underline" role="tablist" aria-label="กรองรายการ"&gt;
+  &lt;button class="sensory-tab is-active" role="tab"
+          aria-selected="true" aria-controls="panel-1"&gt;ทั้งหมด&lt;/button&gt;
+  &lt;button class="sensory-tab" role="tab"
+          aria-selected="false" aria-controls="panel-2"&gt;รออนุมัติ&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div id="panel-1" role="tabpanel"&gt;เนื้อหา&lt;/div&gt;
+&lt;div id="panel-2" role="tabpanel" hidden&gt;เนื้อหา&lt;/div&gt;
+
+&lt;!-- SensoryUI auto-wires keyboard nav + show/hide --&gt;</code>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Table ══════════════════════════════════════════════ -->
+    <section class="doc-section" id="comp-table" data-doc-section>
+      <h1 class="doc-section-title">Table</h1>
+      <div class="doc-preview is-block" style="padding:0;overflow-x:auto">
+        <table class="sensory-table">
+          <thead>
+            <tr>
+              <th scope="col">ชื่อ</th>
+              <th scope="col">แผนก</th>
+              <th scope="col">ประเภทลา</th>
+              <th scope="col">สถานะ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>สมชาย ใจดี</td>
+              <td>IT</td>
+              <td>ลาพักร้อน</td>
+              <td><span class="sensory-badge tone-warning">รออนุมัติ</span></td>
+            </tr>
+            <tr>
+              <td>วิระ มั่นคง</td>
+              <td>HR</td>
+              <td>ลาป่วย</td>
+              <td><span class="sensory-badge tone-success">อนุมัติ</span></td>
+            </tr>
+            <tr>
+              <td>พิมพ์ใจ รักษ์ดี</td>
+              <td>Finance</td>
+              <td>ลากิจ</td>
+              <td><span class="sensory-badge tone-danger">ปฏิเสธ</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="doc-code-wrap">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">&lt;table class="sensory-table"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;ชื่อ&lt;/th&gt;
+      &lt;th scope="col"&gt;แผนก&lt;/th&gt;
+      &lt;th scope="col"&gt;สถานะ&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;สมชาย ใจดี&lt;/td&gt;
+      &lt;td&gt;IT&lt;/td&gt;
+      &lt;td&gt;&lt;span class="sensory-badge tone-success"&gt;อนุมัติ&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Avatar ═══════════════════════════════════════════════ -->
+    <section class="doc-section" id="comp-avatar" data-doc-section>
+      <h1 class="doc-section-title">Avatar</h1>
+      <p class="doc-section-desc">แสดงตัวตนผู้ใช้ด้วย initials หรือรูปภาพ รองรับ 4 ขนาด, status indicator และ group overlap</p>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Sizes</h2>
+        <div class="doc-preview">
+          <div class="sensory-avatar is-xs">สช</div>
+          <div class="sensory-avatar is-sm">นส</div>
+          <div class="sensory-avatar is-md">วน</div>
+          <div class="sensory-avatar is-lg">อก</div>
+        </div>
+        <div class="doc-code-wrap">
+          <button class="doc-copy-btn">คัดลอก</button>
+          <code class="doc-code">&lt;div class="sensory-avatar is-xs"&gt;สช&lt;/div&gt;
+&lt;div class="sensory-avatar is-sm"&gt;สช&lt;/div&gt;
+&lt;div class="sensory-avatar is-md"&gt;สช&lt;/div&gt;
+&lt;div class="sensory-avatar is-lg"&gt;สช&lt;/div&gt;</code>
+        </div>
+      </div>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Status indicator</h2>
+        <div class="doc-preview">
+          <div class="sensory-avatar is-md sensory-avatar-status">สช</div>
+          <div class="sensory-avatar is-sm sensory-avatar-status">นส</div>
+        </div>
+        <div class="doc-code-wrap">
+          <button class="doc-copy-btn">คัดลอก</button>
+          <code class="doc-code">&lt;!-- เพิ่ม sensory-avatar-status เพื่อแสดง online dot --&gt;
+&lt;div class="sensory-avatar is-md sensory-avatar-status"&gt;สช&lt;/div&gt;</code>
+        </div>
+      </div>
+
+      <div class="doc-subsection">
+        <h2 class="doc-subsection-title">Group</h2>
+        <div class="doc-preview">
+          <div class="sensory-avatar-group">
+            <div class="sensory-avatar is-sm">สช</div>
+            <div class="sensory-avatar is-sm">นส</div>
+            <div class="sensory-avatar is-sm">วน</div>
+            <div class="sensory-avatar is-sm">อก</div>
+          </div>
+        </div>
+        <div class="doc-code-wrap">
+          <button class="doc-copy-btn">คัดลอก</button>
+          <code class="doc-code">&lt;div class="sensory-avatar-group"&gt;
+  &lt;div class="sensory-avatar is-sm"&gt;สช&lt;/div&gt;
+  &lt;div class="sensory-avatar is-sm"&gt;นส&lt;/div&gt;
+  &lt;div class="sensory-avatar is-sm"&gt;วน&lt;/div&gt;
+&lt;/div&gt;</code>
+        </div>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Progress ══════════════════════════════════════════════ -->
+    <section class="doc-section" id="comp-progress" data-doc-section>
+      <h1 class="doc-section-title">Progress</h1>
+      <p class="doc-section-desc">แสดงความคืบหน้าของงาน ตั้งค่า width ด้วย inline style รองรับ 4 tones</p>
+
+      <div class="doc-preview is-block">
+        <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:var(--space-2);font-size:var(--text-xs);color:var(--text-muted)">
+              <span>Brand (ค่าเริ่มต้น)</span><span>72%</span>
+            </div>
+            <div class="sensory-progress"><div class="fill" style="width:72%"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:var(--space-2);font-size:var(--text-xs);color:var(--text-muted)">
+              <span>tone-success</span><span>100%</span>
+            </div>
+            <div class="sensory-progress tone-success"><div class="fill" style="width:100%"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:var(--space-2);font-size:var(--text-xs);color:var(--text-muted)">
+              <span>tone-warning</span><span>45%</span>
+            </div>
+            <div class="sensory-progress tone-warning"><div class="fill" style="width:45%"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:var(--space-2);font-size:var(--text-xs);color:var(--text-muted)">
+              <span>tone-danger</span><span>20%</span>
+            </div>
+            <div class="sensory-progress tone-danger"><div class="fill" style="width:20%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code-wrap">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">&lt;!-- ตั้งค่า % ด้วย inline width บน .fill --&gt;
+&lt;div class="sensory-progress"&gt;
+  &lt;div class="fill" style="width:72%"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Tones --&gt;
+&lt;div class="sensory-progress tone-success"&gt;&lt;div class="fill" style="width:100%"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="sensory-progress tone-warning"&gt;&lt;div class="fill" style="width:45%"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="sensory-progress tone-danger"&gt;&lt;div class="fill" style="width:20%"&gt;&lt;/div&gt;&lt;/div&gt;</code>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Drawer ════════════════════════════════════════════ -->
+    <section class="doc-section" id="comp-drawer" data-doc-section>
+      <h1 class="doc-section-title">Drawer</h1>
+      <p class="doc-section-desc">Slide-in panel จาก right — focus trap + Escape + scrim</p>
+
+      <div class="doc-preview">
+        <button class="sensory-btn is-secondary" data-drawer-open="doc-demo-drawer">เปิด Drawer</button>
+      </div>
+      <div class="doc-code-wrap">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">&lt;!-- Trigger --&gt;
+&lt;button class="sensory-btn is-secondary" data-drawer-open="my-drawer"&gt;
+  เปิด Drawer
+&lt;/button&gt;
+
+&lt;!-- Scrim + Drawer (ท้าย body) --&gt;
+&lt;div class="sensory-drawer-scrim" id="my-drawer-scrim"
+     data-drawer-scrim="my-drawer" aria-hidden="true"&gt;&lt;/div&gt;
+
+&lt;aside class="sensory-drawer" id="my-drawer"
+       role="dialog" aria-modal="true" aria-labelledby="drawer-title"
+       aria-hidden="true"&gt;
+  &lt;div class="sensory-drawer-head"&gt;
+    &lt;h2 id="drawer-title"&gt;หัวข้อ Drawer&lt;/h2&gt;
+    &lt;button class="sensory-btn is-ghost is-sm"
+            data-drawer-close="my-drawer" aria-label="ปิด"&gt;✕&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="sensory-drawer-body"&gt;
+    เนื้อหา
+  &lt;/div&gt;
+&lt;/aside&gt;</code>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Modal ════════════════════════════════════════════ -->
+    <section class="doc-section" id="comp-modal" data-doc-section>
+      <h1 class="doc-section-title">Modal</h1>
+      <p class="doc-section-desc">Centered dialog — Sizes: is-sm (400px) / default (560px) / is-lg (720px)</p>
+
+      <div class="doc-preview">
+        <button class="sensory-btn is-primary" data-modal-open="doc-demo-modal">เปิด Modal</button>
+        <button class="sensory-btn is-danger is-sm" data-modal-open="doc-confirm-modal">Confirm Dialog</button>
+      </div>
+      <div class="doc-code-wrap">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">&lt;!-- Trigger --&gt;
+&lt;button class="sensory-btn is-primary" data-modal-open="my-modal"&gt;เปิด Modal&lt;/button&gt;
+
+&lt;!-- Scrim + Modal (ท้าย body) --&gt;
+&lt;div class="sensory-modal-scrim" id="my-modal-scrim"
+     data-modal-scrim="my-modal" aria-hidden="true"&gt;&lt;/div&gt;
+
+&lt;div class="sensory-modal" id="my-modal"
+     role="dialog" aria-modal="true"
+     aria-labelledby="my-modal-title" aria-hidden="true"&gt;
+  &lt;div class="sensory-modal-head"&gt;
+    &lt;h2 id="my-modal-title"&gt;ยืนยันการดำเนินการ&lt;/h2&gt;
+    &lt;button class="sensory-btn is-ghost is-sm"
+            data-modal-close="my-modal" aria-label="ปิด"&gt;✕&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="sensory-modal-body"&gt;เนื้อหา&lt;/div&gt;
+  &lt;div class="sensory-modal-foot"&gt;
+    &lt;button class="sensory-btn is-secondary" data-modal-close="my-modal"&gt;ยกเลิก&lt;/button&gt;
+    &lt;button class="sensory-btn is-primary"&gt;ยืนยัน&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- is-sm สำหรับ confirm dialog --&gt;
+&lt;div class="sensory-modal is-sm" id="my-confirm" ...&gt;</code>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Dropdown ═══════════════════════════════════════════ -->
+    <section class="doc-section" id="comp-dropdown" data-doc-section>
+      <h1 class="doc-section-title">Dropdown</h1>
+      <p class="doc-section-desc">Context menu / action menu — viewport-aware positioning</p>
+
+      <div class="doc-preview">
+        <div class="sensory-dropdown-wrap">
+          <button class="sensory-btn is-secondary is-sm"
+                  data-sensory-dropdown="doc-demo-dropdown">
+            การดำเนินการ ▾
+          </button>
+          <div class="sensory-dropdown" id="doc-demo-dropdown" aria-hidden="true">
+            <button class="sensory-dropdown-item">แก้ไขข้อมูล</button>
+            <button class="sensory-dropdown-item">ดาวน์โหลดรายงาน</button>
+            <div class="sensory-dropdown-divider" role="separator"></div>
+            <button class="sensory-dropdown-item is-danger">ลบพนักงาน</button>
+          </div>
+        </div>
+      </div>
+      <div class="doc-code-wrap">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">&lt;div class="sensory-dropdown-wrap"&gt;
+  &lt;button class="sensory-btn is-secondary is-sm"
+          data-sensory-dropdown="actions-menu"&gt;
+    การดำเนินการ ▾
+  &lt;/button&gt;
+
+  &lt;div class="sensory-dropdown" id="actions-menu" aria-hidden="true"&gt;
+    &lt;button class="sensory-dropdown-item"&gt;แก้ไขข้อมูล&lt;/button&gt;
+    &lt;button class="sensory-dropdown-item"&gt;ดาวน์โหลด&lt;/button&gt;
+    &lt;div class="sensory-dropdown-divider" role="separator"&gt;&lt;/div&gt;
+    &lt;button class="sensory-dropdown-item is-danger"&gt;ลบ&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Pattern: Shell Layout ══════════════════════════════ -->
+    <section class="doc-section" id="pattern-layout" data-doc-section>
+      <h1 class="doc-section-title">Pattern: Shell Layout</h1>
+      <p class="doc-section-desc">โครงสร้างหน้าหลัก — Sidebar + Main (ดู <a href="../vanilla-dashboard/index.html" style="color:var(--brand)">vanilla-dashboard</a> สำหรับ working example)</p>
+      <div class="doc-code-wrap is-standalone">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">&lt;!-- page.css --&gt;
+.app          { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+.sidebar      { background: var(--surface-card); border-right: 1px solid var(--border-subtle); }
+.main         { display: flex; flex-direction: column; overflow: hidden; }
+.topbar       { padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--border-subtle); }
+.content      { flex: 1; overflow-y: auto; padding: var(--space-6); }
+
+&lt;!-- index.html --&gt;
+&lt;div class="app"&gt;
+  &lt;aside class="sidebar"&gt;...&lt;/aside&gt;
+  &lt;div class="main"&gt;
+    &lt;header class="topbar"&gt;...&lt;/header&gt;
+    &lt;main class="content"&gt;...&lt;/main&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+      </div>
+    </section>
+
+    <hr class="doc-divider">
+
+    <!-- ══ Pattern: Form Layout ═══════════════════════════════ -->
+    <section class="doc-section" id="pattern-form" data-doc-section>
+      <h1 class="doc-section-title">Pattern: Form Layout</h1>
+      <p class="doc-section-desc">2-column grid สำหรับ field สั้น / 1-column สำหรับ textarea — actions ขวาล่างเสมอ</p>
+      <div class="doc-code-wrap is-standalone">
+        <button class="doc-copy-btn">คัดลอก</button>
+        <code class="doc-code">&lt;form&gt;
+  &lt;div class="form-grid"&gt; &lt;!-- grid-template-columns: 1fr 1fr --&gt;
+    &lt;div class="sensory-field"&gt;
+      &lt;label class="sensory-label" for="f-name"&gt;ชื่อ&lt;/label&gt;
+      &lt;input class="sensory-input" id="f-name" type="text" required&gt;
+    &lt;/div&gt;
+    &lt;div class="sensory-field"&gt;
+      &lt;label class="sensory-label" for="f-dept"&gt;แผนก&lt;/label&gt;
+      &lt;select class="sensory-select" id="f-dept"&gt;...&lt;/select&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="sensory-field"&gt;  &lt;!-- full width --&gt;
+    &lt;label class="sensory-label" for="f-reason"&gt;เหตุผล&lt;/label&gt;
+    &lt;textarea class="sensory-textarea" id="f-reason" rows="3"&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Actions: secondary ซ้าย primary ขวา --&gt;
+  &lt;div style="display:flex; justify-content:flex-end; gap:var(--space-3); margin-top:var(--space-6)"&gt;
+    &lt;button type="button" class="sensory-btn is-secondary"&gt;ยกเลิก&lt;/button&gt;
+    &lt;button type="submit" class="sensory-btn is-primary"&gt;ส่งคำขอ&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code>
+      </div>
+    </section>
+
+  </main><!-- /docs-content -->
+</div><!-- /docs-wrap -->
+
+<!-- ── Demo: Drawer ─────────────────────────────────────── -->
+<div class="sensory-drawer-scrim" id="doc-demo-drawer-scrim"
+     data-drawer-scrim="doc-demo-drawer" aria-hidden="true"></div>
+<aside class="sensory-drawer" id="doc-demo-drawer"
+       role="dialog" aria-modal="true" aria-labelledby="doc-drawer-title"
+       aria-hidden="true">
+  <div class="sensory-drawer-head">
+    <h2 id="doc-drawer-title">Drawer ตัวอย่าง</h2>
+    <button class="sensory-btn is-ghost is-sm"
+            data-drawer-close="doc-demo-drawer" aria-label="ปิด">✕</button>
+  </div>
+  <div class="sensory-drawer-body">
+    <p style="color:var(--text-muted);font-size:var(--text-sm)">
+      Drawer นี้ถูก wire ด้วย <code style="font-family:var(--font-mono)">data-drawer-open</code>
+      และ SensoryUI จัดการ focus trap + Escape ให้อัตโนมัติ
+    </p>
+  </div>
+</aside>
+
+<!-- ── Demo: Modal ──────────────────────────────────────── -->
+<div class="sensory-modal-scrim" id="doc-demo-modal-scrim"
+     data-modal-scrim="doc-demo-modal" aria-hidden="true"></div>
+<div class="sensory-modal" id="doc-demo-modal"
+     role="dialog" aria-modal="true"
+     aria-labelledby="doc-modal-title" aria-hidden="true">
+  <div class="sensory-modal-head">
+    <h2 id="doc-modal-title">Modal ตัวอย่าง</h2>
+    <button class="sensory-btn is-ghost is-sm"
+            data-modal-close="doc-demo-modal" aria-label="ปิด">✕</button>
+  </div>
+  <div class="sensory-modal-body">
+    <p style="color:var(--text-muted);font-size:var(--text-sm)">
+      Modal นี้ใช้ <code style="font-family:var(--font-mono)">.sensory-modal + .sensory-modal-scrim</code>
+      พร้อม scale animation และ focus trap
+    </p>
+  </div>
+  <div class="sensory-modal-foot">
+    <button class="sensory-btn is-secondary" data-modal-close="doc-demo-modal">ปิด</button>
+    <button class="sensory-btn is-primary" data-modal-close="doc-demo-modal">ยืนยัน</button>
+  </div>
+</div>
+
+<!-- ── Demo: Confirm Modal (is-sm) ─────────────────────── -->
+<div class="sensory-modal-scrim" id="doc-confirm-modal-scrim"
+     data-modal-scrim="doc-confirm-modal" aria-hidden="true"></div>
+<div class="sensory-modal is-sm" id="doc-confirm-modal"
+     role="dialog" aria-modal="true"
+     aria-labelledby="doc-confirm-title" aria-hidden="true">
+  <div class="sensory-modal-head">
+    <h2 id="doc-confirm-title">ยืนยันการลบ?</h2>
+    <button class="sensory-btn is-ghost is-sm"
+            data-modal-close="doc-confirm-modal" aria-label="ปิด">✕</button>
+  </div>
+  <div class="sensory-modal-body">
+    <p style="color:var(--text-muted);font-size:var(--text-sm)">
+      การดำเนินการนี้ไม่สามารถยกเลิกได้ คุณแน่ใจไหม?
+    </p>
+  </div>
+  <div class="sensory-modal-foot">
+    <button class="sensory-btn is-secondary" data-modal-close="doc-confirm-modal">ยกเลิก</button>
+    <button class="sensory-btn is-danger" data-modal-close="doc-confirm-modal">ลบ</button>
+  </div>
+</div>
+
+<script src="../../sensory-ui.js"></script>
+<script src="docs.js"></script>
+</body>
+</html>
