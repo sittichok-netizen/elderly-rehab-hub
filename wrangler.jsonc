@@ -20,5 +20,8 @@
       "binding": "FILES",
       "bucket_name": "elderly-rehab-hub-files"
     }
-  ]
+  ],
+  "ai": {
+    "binding": "AI"
+  }
 }

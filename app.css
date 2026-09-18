@@ -34,3 +34,13 @@ body { margin: 0; background: var(--surface-app); color: var(--text-body); font-
 .content > .sensory-card { margin-top: var(--space-4); }
 
 .empty { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: var(--text-sm); }
+
+.ai-tag { margin-left: var(--space-2); }
+.source-note { font-size: var(--text-sm); color: var(--text-muted); background: var(--surface-sunken); padding: var(--space-3); border-radius: var(--radius-md); margin: 0 0 var(--space-4); }
+
+.discover-panel { margin-top: var(--space-8); }
+.discover-form { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: flex-end; }
+.discover-form .sensory-field { flex: 1 1 220px; }
+.discover-notice { margin: var(--space-3) 0 0; font-size: var(--text-sm); }
+.discover-notice.is-ok { color: var(--status-success-text); }
+.discover-notice.is-error { color: var(--status-danger-text); }

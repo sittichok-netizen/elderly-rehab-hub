@@ -4,7 +4,7 @@
     {
       "name": "Elderly Rehab Hub",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["wrangler", "dev", "--port", "3457"],
+      "runtimeArgs": ["wrangler", "dev", "--remote", "--port", "3457"],
       "port": 3457
     }
   ]
